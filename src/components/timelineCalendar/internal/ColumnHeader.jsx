@@ -3,7 +3,7 @@ import React from "react";
 
 import { Stack, Typography } from "@mui/material";
 
-const DayHeader = ({ date, day }) => {
+const ColumnHeader = ({ date, day }) => {
   return (
     <Stack direction="row" alignItems="flex-end" gap={1}>
       <Typography variant="h5">{date}</Typography>
@@ -12,4 +12,4 @@ const DayHeader = ({ date, day }) => {
   );
 };
 
-export default DayHeader;
+export default ColumnHeader;
