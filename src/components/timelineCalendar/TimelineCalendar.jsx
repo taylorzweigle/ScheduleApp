@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2023
 import React from "react";
 
-import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 
 import ColumnHeader from "./internal/ColumnHeader";
 import EventCard from "./internal/EventCard";
@@ -11,12 +11,12 @@ import { days, events, hours } from "../data/tempData";
 
 const TimelineCalendar = () => {
   return (
-    <>
+    <Stack direction="column" gap={0}>
       <HeaderControls />
-      <Table stickyHeader>
+      <Table stickyHeader sx={{ tableLayout: "fixed" }}>
         <TableHead>
           <TableRow>
-            <TableCell>&nbsp;</TableCell>
+            <TableCell sx={{ width: "80px" }}>&nbsp;</TableCell>
             {days.map((day) => (
               <TableCell key={day.date}>
                 <ColumnHeader date={day.date} day={day.day} />
@@ -51,7 +51,7 @@ const TimelineCalendar = () => {
           ))}
         </TableBody>
       </Table>
-    </>
+    </Stack>
   );
 };
 
