@@ -1,10 +1,11 @@
 //Taylor Zweigle, 2023
 import React from "react";
 
-import { Box, Grid, Stack } from "@mui/material";
+import { Avatar, Box, Grid, Stack, Typography } from "@mui/material";
 
-import TimelineCalendar from "../components/timelineCalendar/TimelineCalendar";
 import MonthCalendar from "../components/monthCalendar/MonthCalendar";
+import TimelineCalendar from "../components/timelineCalendar/TimelineCalendar";
+import ToggleThemeButton from "../components/buttons/ToggleThemeButton";
 
 const MainPage = () => {
   return (
@@ -12,7 +13,6 @@ const MainPage = () => {
       <Grid item xs={12} md={3}>
         <Box
           sx={{
-            backgroundColor: "grey.100",
             padding: "8px",
             borderRight: "1px",
             borderRightStyle: "solid",
@@ -21,7 +21,13 @@ const MainPage = () => {
           }}
         >
           <Stack direction="column" justifyContent="space-between" sx={{ height: "100%" }}>
-            <Box>&nbsp;</Box>
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Stack direction="row" alignItems="center" gap={2}>
+                <Avatar>TZ</Avatar>
+                <Typography>Taylor Zweigle</Typography>
+              </Stack>
+              <ToggleThemeButton />
+            </Stack>
             <MonthCalendar />
           </Stack>
         </Box>
