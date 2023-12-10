@@ -1,14 +1,16 @@
 //Taylor Zweigle, 2023
 import React from "react";
 
-import { TableCell, Typography } from "@mui/material";
+import { Box, TableCell, Typography } from "@mui/material";
 
-const CalendarDay = ({ day }) => {
+const CalendarDay = ({ date, onClick }) => {
   return (
     <TableCell sx={{ border: "none" }}>
-      <Typography variant="body2" color="textPrimary">
-        {day}
-      </Typography>
+      <Box onClick={() => onClick(date)}>
+        <Typography variant="body2" color="textPrimary">
+          {date}
+        </Typography>
+      </Box>
     </TableCell>
   );
 };
