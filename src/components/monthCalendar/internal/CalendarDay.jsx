@@ -6,7 +6,7 @@ import { Box, TableCell, Typography } from "@mui/material";
 const CalendarDay = ({ date, onClick }) => {
   return (
     <TableCell sx={{ border: "none" }}>
-      <Box onClick={() => onClick(date)}>
+      <Box onClick={() => onClick(date)} sx={{ cursor: "pointer" }}>
         <Typography variant="body2" color="textPrimary">
           {date}
         </Typography>

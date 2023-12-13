@@ -1,5 +1,5 @@
 //Taylor Zweigle, 2023
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 
@@ -7,18 +7,58 @@ import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 import EventCard from "./internal/EventCard";
 import HeaderControls from "./internal/HeaderControls";
 
-import { events } from "../data/tempData";
+import { events } from "../../db/tempData";
 
 const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNextWeekClick, onAddEventClick }) => {
+  const [selectedWeek, setSelectedWeek] = useState([]);
+
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   const hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 
+  const sundayEvents = events.filter((event) => event.startTime.getDay() === 0);
+  const mondayEvents = events.filter((event) => event.startTime.getDay() === 1);
+  const tuesdayEvents = events.filter((event) => event.startTime.getDay() === 2);
+  const wednesdayEvents = events.filter((event) => event.startTime.getDay() === 3);
+  const thursdayEvents = events.filter((event) => event.startTime.getDay() === 4);
+  const fridayEvents = events.filter((event) => event.startTime.getDay() === 5);
+  const saturdayEvents = events.filter((event) => event.startTime.getDay() === 6);
+
+  const formatTime = (time) => `${time % 12 === 0 ? 12 : time % 12}${time >= 12 ? "pm" : "am"} `;
+
+  useEffect(() => {
+    let week = [];
+
+    for (let i = 0; i < 7; i++) {
+      week.push(selectedDate.date - selectedDate.weekday + i);
+    }
+
+    setSelectedWeek(week);
+  }, [selectedDate]);
+
+  const formatTableCell = (day, hour, events) => {
+    const event = events[0];
+
+    if (events.length > 0) {
+      return event.startTime.getDate() === selectedWeek[day] && hour === event.startTime.getHours() ? (
+        <TableCell rowSpan={event.endTime.getHours() - event.startTime.getHours()} sx={{ height: "100%", padding: "0px 4px" }}>
+          <EventCard key={event.id} event={event.event} startTime={event.startTime} endTime={event.endTime} />
+        </TableCell>
+      ) : event.startTime.getDate() === selectedWeek[day] &&
+        hour > event.startTime.getHours() &&
+        hour < event.endTime.getHours() ? null : (
+        <TableCell>&nbsp;</TableCell>
+      );
+    } else {
+      return <TableCell>&nbsp;</TableCell>;
+    }
+  };
+
   const populateDateArray = () => {
     let dateArray = [];
 
-    for (let i = 0; i < weekdays.length; i++) {
-      dateArray.push({ day: weekdays[i], date: selectedDate.date + i });
+    for (let i = 0; i < 7; i++) {
+      dateArray.push({ day: weekdays[i], date: selectedWeek[i] });
     }
 
     return dateArray;
@@ -32,7 +72,7 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
         onNextWeekClick={onNextWeekClick}
         onAddEventClick={onAddEventClick}
       />
-      <Table stickyHeader sx={{ tableLayout: "fixed" }}>
+      <Table stickyHeader sx={{ height: "100%", tableLayout: "fixed" }}>
         <TableHead>
           <TableRow>
             <TableCell sx={{ width: "80px" }}>&nbsp;</TableCell>
@@ -55,17 +95,15 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
           {hours.map((hour) => (
             <TableRow key={hour}>
               <TableCell align="right">
-                <Typography variant="caption">{`${hour % 12 === 0 ? 12 : hour % 12}${hour < 12 ? "am" : "pm"}`}</Typography>
+                <Typography variant="caption">{formatTime(hour)}</Typography>
               </TableCell>
-              {populateDateArray().map((day) => (
-                <TableCell key={day.day} sx={{ padding: "0px" }}>
-                  {events
-                    .filter((event) => event.date.getHours() === hour && event.date.getDate() === day.date)
-                    .map((event) => (
-                      <EventCard key={event.id} event={event.event} date={event.date} />
-                    ))}
-                </TableCell>
-              ))}
+              {formatTableCell(0, hour, sundayEvents)}
+              {formatTableCell(1, hour, mondayEvents)}
+              {formatTableCell(2, hour, tuesdayEvents)}
+              {formatTableCell(3, hour, wednesdayEvents)}
+              {formatTableCell(4, hour, thursdayEvents)}
+              {formatTableCell(5, hour, fridayEvents)}
+              {formatTableCell(6, hour, saturdayEvents)}
             </TableRow>
           ))}
         </TableBody>

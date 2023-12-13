@@ -1,14 +1,16 @@
 //Taylor Zweigle, 2023
 import React from "react";
 
-import { Card, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 
-const EventCard = ({ event, date }) => {
+const EventCard = ({ event, startTime, endTime }) => {
+  const formatTime = (time) => `${time % 12 === 0 ? 12 : time % 12}${time >= 12 ? "pm" : "am"} `;
+
   return (
-    <Card sx={{ padding: "8px" }}>
+    <Paper sx={{ padding: "8px", backgroundColor: "#5b21b6", height: "100%" }}>
       <Typography variant="body2">{event}</Typography>
-      <Typography variant="caption">{`${date.getHours()}:00am - ${date.getHours() + 1}:00am`}</Typography>
-    </Card>
+      <Typography variant="caption">{`${formatTime(startTime.getHours())} - ${formatTime(endTime.getHours())}`}</Typography>
+    </Paper>
   );
 };
 
