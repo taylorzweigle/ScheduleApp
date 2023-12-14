@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2023
 import React, { useState } from "react";
 
-import { Avatar, Box, Grid, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Divider, Grid, Stack, Typography } from "@mui/material";
 
 import MonthCalendar from "../components/monthCalendar/MonthCalendar";
 import TimelineCalendar from "../components/timelineCalendar/TimelineCalendar";
@@ -65,27 +65,30 @@ const MainPage = () => {
       <Grid item xs={12} md={3}>
         <Box
           sx={{
-            padding: "8px",
             borderRight: "1px",
             borderRightStyle: "solid",
-            borderRightColor: "grey.300",
+            borderRightColor: "grey.700",
             height: "100vh",
           }}
         >
-          <Stack direction="column" justifyContent="space-between" sx={{ height: "100%" }}>
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Stack direction="column">
+            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ padding: "16px" }}>
               <Stack direction="row" alignItems="center" gap={2}>
                 <Avatar>TZ</Avatar>
                 <Typography>Taylor Zweigle</Typography>
               </Stack>
               <ToggleThemeButton />
             </Stack>
-            <MonthCalendar
-              selectedDate={selectedDate}
-              onPreviousMonthClick={handlePreviousMonthClick}
-              onNextMonthClick={handleNextMonthClick}
-              onCalendarDayClick={handleCalendarDayClick}
-            />
+            <Divider sx={{ backgroundColor: "grey.700" }} />
+            <Box sx={{ padding: "16px" }}>
+              <MonthCalendar
+                selectedDate={selectedDate}
+                onPreviousMonthClick={handlePreviousMonthClick}
+                onNextMonthClick={handleNextMonthClick}
+                onCalendarDayClick={handleCalendarDayClick}
+              />
+            </Box>
+            <Divider sx={{ backgroundColor: "grey.700" }} />
           </Stack>
         </Box>
       </Grid>

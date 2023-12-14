@@ -87,6 +87,7 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
   return (
     <Stack direction="column" gap={0}>
       <HeaderControls
+        selectedDate={selectedDate}
         onTodayClick={onTodayClick}
         onPreviousWeekClick={onPreviousWeekClick}
         onNextWeekClick={onNextWeekClick}
