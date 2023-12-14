@@ -37,21 +37,41 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
   }, [selectedDate]);
 
   const formatTableCell = (day, hour, events) => {
-    const event = events[0];
+    let tableCell = null;
 
     if (events.length > 0) {
-      return event.startTime.getDate() === selectedWeek[day] && hour === event.startTime.getHours() ? (
-        <TableCell rowSpan={event.endTime.getHours() - event.startTime.getHours()} sx={{ height: "100%", padding: "0px 4px" }}>
-          <EventCard key={event.id} event={event.event} startTime={event.startTime} endTime={event.endTime} />
-        </TableCell>
-      ) : event.startTime.getDate() === selectedWeek[day] &&
-        hour > event.startTime.getHours() &&
-        hour < event.endTime.getHours() ? null : (
-        <TableCell>&nbsp;</TableCell>
-      );
+      for (let i = 0; i < events.length; i++) {
+        if (events[i].startTime.getDate() === selectedWeek[day] && hour === events[i].startTime.getHours()) {
+          tableCell = (
+            <TableCell
+              rowSpan={events[i].endTime.getHours() - events[i].startTime.getHours()}
+              sx={{ height: "100%", padding: "0px 4px" }}
+            >
+              <EventCard
+                key={events[i].id}
+                event={events[i].event}
+                startTime={events[i].startTime}
+                endTime={events[i].endTime}
+              />
+            </TableCell>
+          );
+          break;
+        } else if (
+          events[i].startTime.getDate() === selectedWeek[day] &&
+          hour > events[i].startTime.getHours() &&
+          hour < events[i].endTime.getHours()
+        ) {
+          tableCell = null;
+          break;
+        } else {
+          tableCell = <TableCell>&nbsp;</TableCell>;
+        }
+      }
     } else {
-      return <TableCell>&nbsp;</TableCell>;
+      tableCell = <TableCell>&nbsp;</TableCell>;
     }
+
+    return tableCell;
   };
 
   const populateDateArray = () => {
