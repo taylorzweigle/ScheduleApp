@@ -93,7 +93,12 @@ const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, o
           {populateCalendar(selectedDate.year, selectedDate.month).map((week) => (
             <TableRow key={week.week}>
               {week.days.map((date) => (
-                <CalendarDay key={date.key} date={date.date} onClick={(date) => onCalendarDayClick(date)} />
+                <CalendarDay
+                  key={date.key}
+                  date={date.date}
+                  selected={date.date === selectedDate.date}
+                  onClick={(date) => onCalendarDayClick(date)}
+                />
               ))}
             </TableRow>
           ))}

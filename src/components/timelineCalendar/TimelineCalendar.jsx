@@ -14,7 +14,7 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
 
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-  const hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+  const hours = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
   const sundayEvents = events.filter((event) => event.startTime.getDay() === 0);
   const mondayEvents = events.filter((event) => event.startTime.getDay() === 1);
@@ -30,7 +30,15 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
     let week = [];
 
     for (let i = 0; i < 7; i++) {
-      week.push(selectedDate.date - selectedDate.weekday + i);
+      let day = selectedDate.date - selectedDate.weekday + i;
+
+      if (day < 1) {
+        day = day + (32 - new Date(selectedDate.year, selectedDate.month - 1, 32).getDate());
+      } else if (day > 31) {
+        day = day - (32 - new Date(selectedDate.year, selectedDate.month, 32).getDate());
+      }
+
+      week.push(day);
     }
 
     setSelectedWeek(week);
@@ -98,9 +106,7 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
           <TableRow>
             <TableCell sx={{ width: "80px" }}>&nbsp;</TableCell>
             {populateDateArray().map((day) => (
-              <TableCell key={day.day}>
-                <CalendarHeaderDay date={day.date} day={day.day} />
-              </TableCell>
+              <CalendarHeaderDay key={day.day} date={day.date} day={day.day} selected={day.date === selectedDate.date} />
             ))}
           </TableRow>
         </TableHead>

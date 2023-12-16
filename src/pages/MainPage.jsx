@@ -17,42 +17,94 @@ const MainPage = () => {
     weekday: today.getDay(),
   });
 
+  const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
+
   const handleTodayClick = () => {
-    setSelectedDate({ month: today.getMonth(), date: today.getDate(), year: today.getFullYear(), weekday: today.getDay() });
+    let month = today.getMonth();
+    let date = today.getDate();
+    let year = today.getFullYear();
+    let weekday = today.getDay();
+
+    setSelectedDate({ month: month, date: date, year: year, weekday: weekday });
   };
 
   const handlePreviousWeekClick = () => {
-    console.log("PREVIOUS WEEK");
+    let month = selectedDate.date < 8 ? selectedDate.month - 1 : selectedDate.month;
+
+    let date =
+      selectedDate.date < 8
+        ? getMonthLength(selectedDate.year, selectedDate.month - 1) + selectedDate.date - 7
+        : selectedDate.date - 7;
+
+    let year = selectedDate.date < 8 && selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year;
+
+    setSelectedDate({
+      month: month,
+      date: date,
+      year: year,
+      weekday: new Date(year, month, date).getDay(),
+    });
   };
 
   const handleNextWeekClick = () => {
-    console.log("NEXT WEEK");
+    let month =
+      selectedDate.date > getMonthLength(selectedDate.year, selectedDate.month) - 7
+        ? selectedDate.month + 1
+        : selectedDate.month;
+
+    let date =
+      selectedDate.date > getMonthLength(selectedDate.year, selectedDate.month) - 7
+        ? getMonthLength(selectedDate.year, selectedDate.month) + 7 - getMonthLength(selectedDate.year, selectedDate.month)
+        : selectedDate.date + 7;
+
+    let year =
+      selectedDate.date > getMonthLength(selectedDate.year, selectedDate.month) - 7 && selectedDate.month === 11
+        ? selectedDate.year + 1
+        : selectedDate.year;
+
+    setSelectedDate({
+      month: month,
+      date: date,
+      year: year,
+      weekday: new Date(year, month, date).getDay(),
+    });
   };
 
   const handlePreviousMonthClick = () => {
+    let month = selectedDate.month === 0 ? 11 : selectedDate.month - 1;
+    let date = 1;
+    let year = selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year;
+
     setSelectedDate({
-      month: selectedDate.month === 0 ? 11 : selectedDate.month - 1,
-      date: 1,
-      year: selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year,
-      weekday: new Date(selectedDate.year, selectedDate.month - 1, 1).getDay(),
+      month: month,
+      date: date,
+      year: year,
+      weekday: new Date(year, month, date).getDay(),
     });
   };
 
   const handleNextMonthClick = () => {
+    let month = (selectedDate.month + 1) % 12;
+    let date = 1;
+    let year = selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year;
+
     setSelectedDate({
-      month: (selectedDate.month + 1) % 12,
-      date: 1,
-      year: selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year,
-      weekday: new Date(selectedDate.year, selectedDate.month + 1, 1).getDay(),
+      month: month,
+      date: date,
+      year: year,
+      weekday: new Date(year, month, date).getDay(),
     });
   };
 
   const handleCalendarDayClick = (date) => {
+    let month = selectedDate.month;
+    let year = selectedDate.year;
+
     setSelectedDate({
-      month: selectedDate.month,
+      month: month,
       date: date,
-      year: selectedDate.year,
-      weekday: new Date(selectedDate.year, selectedDate.month, date).getDay(),
+      year: year,
+      weekday: new Date(year, month, date).getDay(),
     });
   };
 
