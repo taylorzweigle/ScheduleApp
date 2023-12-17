@@ -29,7 +29,7 @@ const MainPage = () => {
   };
 
   const handlePreviousWeekClick = () => {
-    let month = selectedDate.date < 8 ? selectedDate.month - 1 : selectedDate.month;
+    let month = selectedDate.date < 8 ? (selectedDate.month - 1 === -1 ? 11 : selectedDate.month - 1) : selectedDate.month;
 
     let date =
       selectedDate.date < 8
@@ -49,12 +49,14 @@ const MainPage = () => {
   const handleNextWeekClick = () => {
     let month =
       selectedDate.date > getMonthLength(selectedDate.year, selectedDate.month) - 7
-        ? selectedDate.month + 1
+        ? selectedDate.month + 1 === 12
+          ? 0
+          : selectedDate.month + 1
         : selectedDate.month;
 
     let date =
       selectedDate.date > getMonthLength(selectedDate.year, selectedDate.month) - 7
-        ? getMonthLength(selectedDate.year, selectedDate.month) + 7 - getMonthLength(selectedDate.year, selectedDate.month)
+        ? 7 - (getMonthLength(selectedDate.year, selectedDate.month) - selectedDate.date)
         : selectedDate.date + 7;
 
     let year =

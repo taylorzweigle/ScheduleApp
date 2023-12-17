@@ -30,15 +30,23 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
     let week = [];
 
     for (let i = 0; i < 7; i++) {
-      let day = selectedDate.date - selectedDate.weekday + i;
+      let month = selectedDate.month;
 
-      if (day < 1) {
-        day = day + (32 - new Date(selectedDate.year, selectedDate.month - 1, 32).getDate());
-      } else if (day > 31) {
-        day = day - (32 - new Date(selectedDate.year, selectedDate.month, 32).getDate());
+      let date = selectedDate.date - selectedDate.weekday + i;
+
+      let year = selectedDate.year;
+
+      if (date < 1) {
+        month = selectedDate.month - 1;
+        date = date + (32 - new Date(selectedDate.year, selectedDate.month - 1, 32).getDate());
+        year = selectedDate.month < 0 ? selectedDate.year - 1 : selectedDate.year;
+      } else if (date > 31) {
+        month = selectedDate.month + 1;
+        date = date - (32 - new Date(selectedDate.year, selectedDate.month, 32).getDate());
+        year = selectedDate.month > 11 ? selectedDate.year + 1 : selectedDate.year;
       }
 
-      week.push(day);
+      week.push({ month: month, date: date, year: year });
     }
 
     setSelectedWeek(week);
@@ -47,9 +55,14 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
   const formatTableCell = (day, hour, events) => {
     let tableCell = null;
 
-    if (events.length > 0) {
+    if (events.length > 0 && selectedWeek.length > 0) {
       for (let i = 0; i < events.length; i++) {
-        if (events[i].startTime.getDate() === selectedWeek[day] && hour === events[i].startTime.getHours()) {
+        if (
+          events[i].startTime.getMonth() === selectedWeek[day].month &&
+          events[i].startTime.getDate() === selectedWeek[day].date &&
+          events[i].startTime.getFullYear() === selectedWeek[day].year &&
+          hour === events[i].startTime.getHours()
+        ) {
           tableCell = (
             <TableCell
               rowSpan={events[i].endTime.getHours() - events[i].startTime.getHours()}
@@ -65,7 +78,9 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
           );
           break;
         } else if (
-          events[i].startTime.getDate() === selectedWeek[day] &&
+          events[i].startTime.getMonth() === selectedWeek[day].month &&
+          events[i].startTime.getDate() === selectedWeek[day].date &&
+          events[i].startTime.getFullYear() === selectedWeek[day].year &&
           hour > events[i].startTime.getHours() &&
           hour < events[i].endTime.getHours()
         ) {
@@ -85,8 +100,10 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
   const populateDateArray = () => {
     let dateArray = [];
 
-    for (let i = 0; i < 7; i++) {
-      dateArray.push({ day: weekdays[i], date: selectedWeek[i] });
+    if (selectedWeek.length > 0) {
+      for (let i = 0; i < 7; i++) {
+        dateArray.push({ day: weekdays[i], date: selectedWeek[i].date });
+      }
     }
 
     return dateArray;
