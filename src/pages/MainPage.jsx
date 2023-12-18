@@ -1,8 +1,6 @@
 //Taylor Zweigle, 2023
 import React, { useState } from "react";
 
-import { Avatar, Box, Divider, Grid, Stack, Typography } from "@mui/material";
-
 import MonthCalendar from "../components/monthCalendar/MonthCalendar";
 import TimelineCalendar from "../components/timelineCalendar/TimelineCalendar";
 import ToggleThemeButton from "../components/buttons/ToggleThemeButton";
@@ -115,38 +113,45 @@ const MainPage = () => {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12} md={3}>
-        <Box
-          sx={{
-            borderRight: "1px",
-            borderRightStyle: "solid",
-            borderRightColor: "grey.700",
-            height: "100vh",
-          }}
-        >
-          <Stack direction="column">
-            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ padding: "16px" }}>
-              <Stack direction="row" alignItems="center" gap={2}>
-                <Avatar>TZ</Avatar>
-                <Typography>Taylor Zweigle</Typography>
-              </Stack>
-              <ToggleThemeButton />
-            </Stack>
-            <Divider sx={{ backgroundColor: "grey.700" }} />
-            <Box sx={{ padding: "16px" }}>
-              <MonthCalendar
-                selectedDate={selectedDate}
-                onPreviousMonthClick={handlePreviousMonthClick}
-                onNextMonthClick={handleNextMonthClick}
-                onCalendarDayClick={handleCalendarDayClick}
-              />
-            </Box>
-            <Divider sx={{ backgroundColor: "grey.700" }} />
-          </Stack>
-        </Box>
-      </Grid>
-      <Grid item xs={12} md={9}>
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        style={{
+          width: "384px",
+          height: "100vh",
+          borderRight: "1px",
+          borderRightStyle: "solid",
+          borderRightColor: "grey.700",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "16px",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "16px" }}>
+              <div>TZ</div>
+              <p>Taylor Zweigle</p>
+            </div>
+            <ToggleThemeButton />
+          </div>
+          <div style={{ height: "1px", backgroundColor: "grey.700" }}>&nbsp;</div>
+          <div style={{ padding: "16px" }}>
+            <MonthCalendar
+              selectedDate={selectedDate}
+              onPreviousMonthClick={handlePreviousMonthClick}
+              onNextMonthClick={handleNextMonthClick}
+              onCalendarDayClick={handleCalendarDayClick}
+            />
+          </div>
+          <div style={{ height: "1px", backgroundColor: "grey.700" }}>&nbsp;</div>{" "}
+        </div>
+      </div>
+      <div style={{ flex: 1 }}>
         <TimelineCalendar
           selectedDate={selectedDate}
           onTodayClick={handleTodayClick}
@@ -154,8 +159,8 @@ const MainPage = () => {
           onNextWeekClick={handleNextWeekClick}
           onAddEventClick={handleAddEventClick}
         />
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 };
 

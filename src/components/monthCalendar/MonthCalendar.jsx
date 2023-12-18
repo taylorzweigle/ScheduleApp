@@ -1,8 +1,6 @@
 //Taylor Zweigle, 2023
 import React from "react";
 
-import { IconButton, Stack, Table, TableBody, TableHead, TableRow, Typography } from "@mui/material";
-
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
@@ -69,29 +67,29 @@ const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, o
   };
 
   return (
-    <Stack direction="column" gap={2}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="body1">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
-        <Stack direction="row" gap={0}>
-          <IconButton onClick={onPreviousMonthClick}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+        <p>{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
+        <div style={{ display: "flex", flexDirection: "row", gap: "0px" }}>
+          <button onClick={onPreviousMonthClick}>
             <ChevronLeftIcon />
-          </IconButton>
-          <IconButton onClick={onNextMonthClick}>
+          </button>
+          <button onClick={onNextMonthClick}>
             <ChevronRightIcon />
-          </IconButton>
-        </Stack>
-      </Stack>
-      <Table>
-        <TableHead>
-          <TableRow>
+          </button>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
             {weekdays.map((weekday) => (
               <CalendarHeaderDay key={weekday} day={weekday.slice(0, 1)} />
             ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
+          </tr>
+        </thead>
+        <tbody>
           {populateCalendar(selectedDate.year, selectedDate.month).map((week) => (
-            <TableRow key={week.week}>
+            <tr key={week.week}>
               {week.days.map((date) => (
                 <CalendarDay
                   key={date.key}
@@ -100,11 +98,11 @@ const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, o
                   onClick={(date) => onCalendarDayClick(date)}
                 />
               ))}
-            </TableRow>
+            </tr>
           ))}
-        </TableBody>
-      </Table>
-    </Stack>
+        </tbody>
+      </table>
+    </div>
   );
 };
 

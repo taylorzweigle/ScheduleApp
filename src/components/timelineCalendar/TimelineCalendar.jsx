@@ -1,8 +1,6 @@
 //Taylor Zweigle, 2023
 import React, { useState, useEffect } from "react";
 
-import { Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
-
 import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 import EventCard from "./internal/EventCard";
 import HeaderControls from "./internal/HeaderControls";
@@ -64,9 +62,9 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
           hour === events[i].startTime.getHours()
         ) {
           tableCell = (
-            <TableCell
+            <td
               rowSpan={events[i].endTime.getHours() - events[i].startTime.getHours()}
-              sx={{ height: "100%", padding: "0px 4px" }}
+              style={{ height: "100%", padding: "0px 4px" }}
             >
               <EventCard
                 key={events[i].id}
@@ -74,7 +72,7 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
                 startTime={events[i].startTime}
                 endTime={events[i].endTime}
               />
-            </TableCell>
+            </td>
           );
           break;
         } else if (
@@ -87,11 +85,11 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
           tableCell = null;
           break;
         } else {
-          tableCell = <TableCell>&nbsp;</TableCell>;
+          tableCell = <td>&nbsp;</td>;
         }
       }
     } else {
-      tableCell = <TableCell>&nbsp;</TableCell>;
+      tableCell = <td>&nbsp;</td>;
     }
 
     return tableCell;
@@ -110,7 +108,7 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
   };
 
   return (
-    <Stack direction="column" gap={0}>
+    <div style={{ display: "flex", flexDirection: "column", gap: " 0px" }}>
       <HeaderControls
         selectedDate={selectedDate}
         onTodayClick={onTodayClick}
@@ -118,29 +116,29 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
         onNextWeekClick={onNextWeekClick}
         onAddEventClick={onAddEventClick}
       />
-      <Table stickyHeader sx={{ height: "100%", tableLayout: "fixed" }}>
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{ width: "80px" }}>&nbsp;</TableCell>
+      <table style={{ height: "100%", tableLayout: "fixed" }}>
+        <thead>
+          <tr>
+            <td style={{ width: "80px" }}>&nbsp;</td>
             {populateDateArray().map((day) => (
               <CalendarHeaderDay key={day.day} date={day.date} day={day.day} selected={day.date === selectedDate.date} />
             ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell align="right">
-              <Typography variant="caption">All Day</Typography>
-            </TableCell>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td align="right">
+              <p>All Day</p>
+            </td>
             {weekdays.map((day) => (
-              <TableCell key={day}>&nbsp;</TableCell>
+              <td key={day}>&nbsp;</td>
             ))}
-          </TableRow>
+          </tr>
           {hours.map((hour) => (
-            <TableRow key={hour}>
-              <TableCell align="right">
-                <Typography variant="caption">{formatTime(hour)}</Typography>
-              </TableCell>
+            <tr key={hour}>
+              <td align="right">
+                <p>{formatTime(hour)}</p>
+              </td>
               {formatTableCell(0, hour, sundayEvents)}
               {formatTableCell(1, hour, mondayEvents)}
               {formatTableCell(2, hour, tuesdayEvents)}
@@ -148,11 +146,11 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
               {formatTableCell(4, hour, thursdayEvents)}
               {formatTableCell(5, hour, fridayEvents)}
               {formatTableCell(6, hour, saturdayEvents)}
-            </TableRow>
+            </tr>
           ))}
-        </TableBody>
-      </Table>
-    </Stack>
+        </tbody>
+      </table>
+    </div>
   );
 };
 

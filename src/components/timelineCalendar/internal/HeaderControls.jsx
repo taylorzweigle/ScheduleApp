@@ -1,8 +1,6 @@
 //Taylor Zweigle, 2023
 import React from "react";
 
-import { Button, ButtonGroup, Stack, Typography } from "@mui/material";
-
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
@@ -23,27 +21,23 @@ const HeaderControls = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNex
   ];
 
   return (
-    <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ padding: "16px" }}>
-      <Typography variant="h5">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
-      <Stack direction="row" alignItems="center" gap={2}>
-        <Button variant="outlined" onClick={onTodayClick}>
-          Today
-        </Button>
-        <Stack direction="row" alignItems="center" gap={0}>
-          <ButtonGroup size="md">
-            <Button onClick={onPreviousWeekClick}>
-              <ChevronLeftIcon />
-            </Button>
-            <Button onClick={onNextWeekClick}>
-              <ChevronRightIcon />
-            </Button>
-          </ButtonGroup>
-        </Stack>
-        <Button variant="contained" onClick={onAddEventClick}>
-          Add Event
-        </Button>
-      </Stack>
-    </Stack>
+    <div
+      style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: "16px" }}
+    >
+      <h5>{`${months[selectedDate.month]} ${selectedDate.year}`}</h5>
+      <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "16px" }}>
+        <button onClick={onTodayClick}>Today</button>
+        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "0px" }}>
+          <button onClick={onPreviousWeekClick}>
+            <ChevronLeftIcon />
+          </button>
+          <button onClick={onNextWeekClick}>
+            <ChevronRightIcon />
+          </button>
+        </div>
+        <button onClick={onAddEventClick}>Add Event</button>
+      </div>
+    </div>
   );
 };
 
