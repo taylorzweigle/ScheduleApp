@@ -67,10 +67,10 @@ const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, o
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-row justify-between items-center">
         <p>{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
-        <div style={{ display: "flex", flexDirection: "row", gap: "0px" }}>
+        <div className="flex flex-row gap-0">
           <button onClick={onPreviousMonthClick}>
             <ChevronLeftIcon />
           </button>

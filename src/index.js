@@ -4,6 +4,8 @@ import ReactDOM from "react-dom/client";
 import { legacy_createStore as createStore } from "redux";
 import { Provider } from "react-redux";
 
+import "./index.css";
+
 import reducers from "./reducers";
 
 import App from "./App";

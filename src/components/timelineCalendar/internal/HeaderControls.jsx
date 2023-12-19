@@ -21,13 +21,11 @@ const HeaderControls = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNex
   ];
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: "16px" }}
-    >
-      <h5>{`${months[selectedDate.month]} ${selectedDate.year}`}</h5>
-      <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "16px" }}>
+    <div className="flex flex-row justify-between items-center p-4">
+      <p className="text-slate-950">{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
+      <div className="flex flex-row items-center g-4">
         <button onClick={onTodayClick}>Today</button>
-        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "0px" }}>
+        <div className="flex flex-row items-center gap-0">
           <button onClick={onPreviousWeekClick}>
             <ChevronLeftIcon />
           </button>

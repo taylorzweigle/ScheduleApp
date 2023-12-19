@@ -113,34 +113,18 @@ const MainPage = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
-      <div
-        style={{
-          width: "384px",
-          height: "100vh",
-          borderRight: "1px",
-          borderRightStyle: "solid",
-          borderRightColor: "grey.700",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "16px",
-            }}
-          >
-            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "16px" }}>
+    <div className="flex flex-row">
+      <div className="w-96 h-screen">
+        <div className="flex flex-col">
+          <div className="flex flex-row justify-between items-center p-4">
+            <div className="flex flex-row items-center g-4">
               <div>TZ</div>
               <p>Taylor Zweigle</p>
             </div>
             <ToggleThemeButton />
           </div>
-          <div style={{ height: "1px", backgroundColor: "grey.700" }}>&nbsp;</div>
-          <div style={{ padding: "16px" }}>
+          <div className="h-px bg-slate-950">&nbsp;</div>
+          <div className="p-4">
             <MonthCalendar
               selectedDate={selectedDate}
               onPreviousMonthClick={handlePreviousMonthClick}
@@ -148,10 +132,10 @@ const MainPage = () => {
               onCalendarDayClick={handleCalendarDayClick}
             />
           </div>
-          <div style={{ height: "1px", backgroundColor: "grey.700" }}>&nbsp;</div>{" "}
+          <div className="h-px bg-slate-950">&nbsp;</div>
         </div>
       </div>
-      <div style={{ flex: 1 }}>
+      <div className="flex-1">
         <TimelineCalendar
           selectedDate={selectedDate}
           onTodayClick={handleTodayClick}

@@ -3,7 +3,7 @@ import React from "react";
 
 const CalendarHeaderDay = ({ day }) => {
   return (
-    <th style={{ border: "none" }}>
+    <th>
       <p>{day}</p>
     </th>
   );

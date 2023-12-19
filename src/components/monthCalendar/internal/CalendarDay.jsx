@@ -3,16 +3,9 @@ import React from "react";
 
 const CalendarDay = ({ date, selected, onClick }) => {
   return (
-    <td
-      style={{
-        border: "none",
-        borderRadius: "100%",
-        backgroundColor: selected ? "#90caf9" : null,
-        textAlign: "center",
-      }}
-    >
-      <div onClick={() => onClick(date)} style={{ cursor: "pointer" }}>
-        <p style={{ color: selected ? "#000000" : "#ffffff" }}>{date}</p>
+    <td className={`rounded-full text-center ${selected ? "bg-blue-500" : null}`}>
+      <div className="cursor-pointer" onClick={() => onClick(date)}>
+        <p className={`${selected ? "text-white" : "text-slate-950"}`}>{date}</p>
       </div>
     </td>
   );

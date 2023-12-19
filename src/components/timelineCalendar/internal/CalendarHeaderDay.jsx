@@ -3,10 +3,10 @@ import React from "react";
 
 const ColumnHeader = ({ date, day, selected }) => {
   return (
-    <th style={{ borderBottom: selected ? "2px solid #90caf9" : null }}>
-      <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", gap: "8px" }}>
-        <h5 style={{ color: selected ? "#90caf9" : "#ffffff" }}>{date}</h5>
-        <p style={{ color: selected ? "#90caf9" : "#ffffff" }}>{day.slice(0, 3)}</p>
+    <th className={`${selected ? "border-b-4 border-blue-500" : null}`}>
+      <div className="flex flex-row items-end gap-2">
+        <p className={`${selected ? "text-blue-500" : "text-slate-950"}`}>{date}</p>
+        <p className={`${selected ? "text-blue-500" : "text-slate-950"}`}>{day.slice(0, 3)}</p>
       </div>
     </th>
   );

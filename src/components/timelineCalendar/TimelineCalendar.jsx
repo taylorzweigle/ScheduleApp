@@ -108,7 +108,7 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: " 0px" }}>
+    <div className="flex flex-col g-0">
       <HeaderControls
         selectedDate={selectedDate}
         onTodayClick={onTodayClick}
@@ -116,10 +116,10 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
         onNextWeekClick={onNextWeekClick}
         onAddEventClick={onAddEventClick}
       />
-      <table style={{ height: "100%", tableLayout: "fixed" }}>
+      <table className="h-full table-fixed">
         <thead>
           <tr>
-            <td style={{ width: "80px" }}>&nbsp;</td>
+            <td className="w-20">&nbsp;</td>
             {populateDateArray().map((day) => (
               <CalendarHeaderDay key={day.day} date={day.date} day={day.day} selected={day.date === selectedDate.date} />
             ))}
