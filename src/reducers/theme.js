@@ -1,5 +1,6 @@
 //Taylor Zweigle, 2023
-const setTheme = (theme = "dark", action) => {
+
+const setTheme = (theme = "light", action) => {
   switch (action.type) {
     case "THEME": {
       return theme === "light" ? "dark" : "light";

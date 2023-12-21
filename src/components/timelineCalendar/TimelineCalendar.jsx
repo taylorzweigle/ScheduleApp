@@ -5,7 +5,7 @@ import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 import EventCard from "./internal/EventCard";
 import HeaderControls from "./internal/HeaderControls";
 
-import { events } from "../../db/tempData";
+import { events } from "../../db/_db";
 
 const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNextWeekClick, onAddEventClick }) => {
   const [selectedWeek, setSelectedWeek] = useState([]);
@@ -63,6 +63,7 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
         ) {
           tableCell = (
             <td
+              className="h-16 border-b border-slate-300 dark:border-slate-600"
               rowSpan={events[i].endTime.getHours() - events[i].startTime.getHours()}
               style={{ height: "100%", padding: "0px 4px" }}
             >
@@ -85,11 +86,11 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
           tableCell = null;
           break;
         } else {
-          tableCell = <td>&nbsp;</td>;
+          tableCell = <td className="h-16 border-b border-slate-300 dark:border-slate-600">&nbsp;</td>;
         }
       }
     } else {
-      tableCell = <td>&nbsp;</td>;
+      tableCell = <td className="h-16 border-b border-slate-300 dark:border-slate-600">&nbsp;</td>;
     }
 
     return tableCell;
@@ -119,7 +120,7 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
       <table className="h-full table-fixed">
         <thead>
           <tr>
-            <td className="w-20">&nbsp;</td>
+            <td className="h-16 w-20 border-b border-slate-300 dark:border-slate-600">&nbsp;</td>
             {populateDateArray().map((day) => (
               <CalendarHeaderDay key={day.day} date={day.date} day={day.day} selected={day.date === selectedDate.date} />
             ))}
@@ -127,16 +128,18 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
         </thead>
         <tbody>
           <tr>
-            <td align="right">
+            <td align="right" className="h-16 border-b border-slate-300 dark:border-slate-600">
               <p>All Day</p>
             </td>
             {weekdays.map((day) => (
-              <td key={day}>&nbsp;</td>
+              <td key={day} className="h-16 border-b border-slate-300 dark:border-slate-600">
+                &nbsp;
+              </td>
             ))}
           </tr>
           {hours.map((hour) => (
             <tr key={hour}>
-              <td align="right">
+              <td align="right" className="h-16 border-b border-slate-300 dark:border-slate-600">
                 <p>{formatTime(hour)}</p>
               </td>
               {formatTableCell(0, hour, sundayEvents)}

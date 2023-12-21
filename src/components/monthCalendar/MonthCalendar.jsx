@@ -7,6 +7,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CalendarDay from "./internal/CalendarDay";
 import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
+import IconButton from "../buttons/IconButton";
+
 const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, onCalendarDayClick }) => {
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -69,14 +71,10 @@ const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, o
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row justify-between items-center">
-        <p>{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
+        <p className="text-lg text-slate-950 dark:text-white">{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
         <div className="flex flex-row gap-0">
-          <button onClick={onPreviousMonthClick}>
-            <ChevronLeftIcon />
-          </button>
-          <button onClick={onNextMonthClick}>
-            <ChevronRightIcon />
-          </button>
+          <IconButton icon={<ChevronLeftIcon />} onClick={onPreviousMonthClick} />
+          <IconButton icon={<ChevronRightIcon />} onClick={onNextMonthClick} />
         </div>
       </div>
       <table>

@@ -1,6 +1,7 @@
 //Taylor Zweigle, 2023
 import React, { useState } from "react";
 
+import Avatar from "../components/avatar/Avatar";
 import MonthCalendar from "../components/monthCalendar/MonthCalendar";
 import TimelineCalendar from "../components/timelineCalendar/TimelineCalendar";
 import ToggleThemeButton from "../components/buttons/ToggleThemeButton";
@@ -114,16 +115,16 @@ const MainPage = () => {
 
   return (
     <div className="flex flex-row">
-      <div className="w-96 h-screen">
+      <div className="w-96 h-screen bg-white dark:bg-slate-900 border-r border-slate-300 dark:border-slate-600">
         <div className="flex flex-col">
           <div className="flex flex-row justify-between items-center p-4">
-            <div className="flex flex-row items-center g-4">
-              <div>TZ</div>
-              <p>Taylor Zweigle</p>
+            <div className="flex flex-row justify-start items-center gap-2">
+              <Avatar>TZ</Avatar>
+              <p className="text-slate-950 dark:text-white">Taylor Zweigle</p>
             </div>
             <ToggleThemeButton />
           </div>
-          <div className="h-px bg-slate-950">&nbsp;</div>
+          <div className="h-px bg-slate-300 dark:bg-slate-600">&nbsp;</div>
           <div className="p-4">
             <MonthCalendar
               selectedDate={selectedDate}
@@ -132,10 +133,10 @@ const MainPage = () => {
               onCalendarDayClick={handleCalendarDayClick}
             />
           </div>
-          <div className="h-px bg-slate-950">&nbsp;</div>
+          <div className="h-px bg-slate-300 dark:bg-slate-600">&nbsp;</div>
         </div>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 bg-white dark:bg-slate-900">
         <TimelineCalendar
           selectedDate={selectedDate}
           onTodayClick={handleTodayClick}

@@ -4,7 +4,7 @@ import React from "react";
 const CalendarHeaderDay = ({ day }) => {
   return (
     <th>
-      <p>{day}</p>
+      <p className="text-slate-950 dark:text-slate-300">{day}</p>
     </th>
   );
 };
