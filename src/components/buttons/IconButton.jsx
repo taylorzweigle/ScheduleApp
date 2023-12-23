@@ -1,12 +1,23 @@
 //Taylor Zweigle, 2023
 import React from "react";
 
-const IconButton = ({ icon, onClick }) => {
+const IconButton = ({ color, icon, onClick }) => {
+  let buttonStyle = "";
+
+  switch (color) {
+    case "primary":
+      buttonStyle = "text-pink-500 hover:bg-pink-100 hover:dark:bg-slate-800";
+      break;
+    case "secondary":
+      buttonStyle = "text-slate-950 dark:text-white hover:bg-pink-100 hover:dark:bg-slate-800";
+      break;
+    default:
+      buttonStyle = "text-slate-950 dark:text-white hover:bg-pink-100 hover:dark:bg-slate-800";
+      break;
+  }
+
   return (
-    <button
-      className="w-12 h-12 rounded-full text-slate-950 dark:text-white hover:bg-pink-100 hover:dark:bg-pink-950"
-      onClick={onClick}
-    >
+    <button className={`w-12 h-12 rounded-full ${buttonStyle}`} onClick={onClick}>
       {icon}
     </button>
   );

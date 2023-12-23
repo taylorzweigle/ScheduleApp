@@ -63,9 +63,8 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
         ) {
           tableCell = (
             <td
-              className="h-16 border-b border-slate-300 dark:border-slate-600"
+              className="h-full pl-1 pr-1 border-b border-slate-300 dark:border-slate-600"
               rowSpan={events[i].endTime.getHours() - events[i].startTime.getHours()}
-              style={{ height: "100%", padding: "0px 4px" }}
             >
               <EventCard
                 key={events[i].id}
@@ -117,10 +116,10 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
         onNextWeekClick={onNextWeekClick}
         onAddEventClick={onAddEventClick}
       />
-      <table className="h-full table-fixed">
+      <table className="h-full w-full table-fixed">
         <thead>
           <tr>
-            <td className="h-16 w-20 border-b border-slate-300 dark:border-slate-600">&nbsp;</td>
+            <td className="h-16 w-24 pr-4 border-b border-slate-300 dark:border-slate-600">&nbsp;</td>
             {populateDateArray().map((day) => (
               <CalendarHeaderDay key={day.day} date={day.date} day={day.day} selected={day.date === selectedDate.date} />
             ))}
@@ -128,19 +127,19 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
         </thead>
         <tbody>
           <tr>
-            <td align="right" className="h-16 border-b border-slate-300 dark:border-slate-600">
-              <p>All Day</p>
+            <td align="right" className="h-16 pr-4 border-b border-slate-300 dark:border-slate-600">
+              <p className="text-slate-950 dark:text-white">All Day</p>
             </td>
             {weekdays.map((day) => (
-              <td key={day} className="h-16 border-b border-slate-300 dark:border-slate-600">
+              <td key={day} className="h-16 pr-4 border-b border-slate-300 dark:border-slate-600">
                 &nbsp;
               </td>
             ))}
           </tr>
           {hours.map((hour) => (
             <tr key={hour}>
-              <td align="right" className="h-16 border-b border-slate-300 dark:border-slate-600">
-                <p>{formatTime(hour)}</p>
+              <td align="right" className="h-16 pr-4 border-b border-slate-300 dark:border-slate-600">
+                <p className="text-slate-950 dark:text-white">{formatTime(hour)}</p>
               </td>
               {formatTableCell(0, hour, sundayEvents)}
               {formatTableCell(1, hour, mondayEvents)}
