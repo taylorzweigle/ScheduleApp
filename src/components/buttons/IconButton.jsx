@@ -6,13 +6,13 @@ const IconButton = ({ color, icon, onClick }) => {
 
   switch (color) {
     case "primary":
-      buttonStyle = "text-pink-500 hover:bg-pink-100 hover:dark:bg-slate-800";
+      buttonStyle = "text-sky-500 hover:bg-sky-100 hover:dark:bg-slate-800";
       break;
     case "secondary":
-      buttonStyle = "text-slate-950 dark:text-white hover:bg-pink-100 hover:dark:bg-slate-800";
+      buttonStyle = "text-slate-950 dark:text-white hover:bg-sky-100 hover:dark:bg-slate-800";
       break;
     default:
-      buttonStyle = "text-slate-950 dark:text-white hover:bg-pink-100 hover:dark:bg-slate-800";
+      buttonStyle = "text-slate-950 dark:text-white hover:bg-sky-100 hover:dark:bg-slate-800";
       break;
   }
 

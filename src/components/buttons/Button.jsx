@@ -6,16 +6,16 @@ const Button = ({ variant, children, onClick }) => {
 
   switch (variant) {
     case "contained":
-      buttonStyle = "bg-pink-500 text-white hover:bg-pink-700";
+      buttonStyle = "bg-sky-500 text-white hover:bg-sky-700";
       break;
     case "outlined":
-      buttonStyle = "border border-pink-500 text-pink-500 hover:bg-pink-100 hover:dark:bg-slate-800";
+      buttonStyle = "border border-sky-500 text-sky-500 hover:bg-sky-100 hover:dark:bg-slate-800";
       break;
     case "text":
-      buttonStyle = "text-pink-500 hover:bg-pink-100 hover:dark:bg-slate-800";
+      buttonStyle = "text-sky-500 hover:bg-sky-100 hover:dark:bg-slate-800";
       break;
     default:
-      buttonStyle = "text-pink-500 hover:bg-pink-100 hover:dark:bg-slate-800";
+      buttonStyle = "text-sky-500 hover:bg-sky-100 hover:dark:bg-slate-800";
       break;
   }
 

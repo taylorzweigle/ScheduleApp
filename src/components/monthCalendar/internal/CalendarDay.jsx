@@ -5,7 +5,7 @@ const CalendarDay = ({ date, selected, onClick }) => {
   return (
     <td
       className={`h-12 w-12 rounded-full text-center ${
-        selected ? "bg-pink-500" : date ? "hover:bg-pink-100 hover:dark:bg-slate-800" : ""
+        selected ? "bg-sky-500" : date ? "hover:bg-sky-100 hover:dark:bg-slate-800" : ""
       }`}
     >
       <div className="cursor-pointer" onClick={() => onClick(date)}>
