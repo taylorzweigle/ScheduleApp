@@ -116,42 +116,45 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
         onNextWeekClick={onNextWeekClick}
         onAddEventClick={onAddEventClick}
       />
-      <table className="h-full w-full table-fixed">
-        <thead>
-          <tr>
-            <td className="h-16 w-24 pr-4 border-b border-slate-300 dark:border-slate-600">&nbsp;</td>
-            {populateDateArray().map((day) => (
-              <CalendarHeaderDay key={day.day} date={day.date} day={day.day} selected={day.date === selectedDate.date} />
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td align="right" className="h-16 pr-4 border-b border-slate-300 dark:border-slate-600">
-              <p className="text-slate-950 dark:text-white">All Day</p>
-            </td>
-            {weekdays.map((day) => (
-              <td key={day} className="h-16 pr-4 border-b border-slate-300 dark:border-slate-600">
-                &nbsp;
-              </td>
-            ))}
-          </tr>
+      <div className="flex flex-row gap-0">
+        <div className="flex flex-col w-24 pt-12 pb-4 pr-4 items-end">
+          <div className="h-full text-slate-950 dark:text-white">All Day</div>
           {hours.map((hour) => (
-            <tr key={hour}>
-              <td align="right" className="h-16 pr-4 border-b border-slate-300 dark:border-slate-600">
-                <p className="text-slate-950 dark:text-white">{formatTime(hour)}</p>
-              </td>
-              {formatTableCell(0, hour, sundayEvents)}
-              {formatTableCell(1, hour, mondayEvents)}
-              {formatTableCell(2, hour, tuesdayEvents)}
-              {formatTableCell(3, hour, wednesdayEvents)}
-              {formatTableCell(4, hour, thursdayEvents)}
-              {formatTableCell(5, hour, fridayEvents)}
-              {formatTableCell(6, hour, saturdayEvents)}
-            </tr>
+            <div key={hour} className="h-full text-slate-950 dark:text-white">
+              {formatTime(hour)}
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+        <table className="h-full w-full table-fixed">
+          <thead>
+            <tr className="h-16">
+              {populateDateArray().map((day) => (
+                <CalendarHeaderDay key={day.day} date={day.date} day={day.day} selected={day.date === selectedDate.date} />
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {weekdays.map((day) => (
+                <td key={day} className="h-16 pr-4 border-b border-slate-300 dark:border-slate-600">
+                  &nbsp;
+                </td>
+              ))}
+            </tr>
+            {hours.map((hour) => (
+              <tr key={hour}>
+                {formatTableCell(0, hour, sundayEvents)}
+                {formatTableCell(1, hour, mondayEvents)}
+                {formatTableCell(2, hour, tuesdayEvents)}
+                {formatTableCell(3, hour, wednesdayEvents)}
+                {formatTableCell(4, hour, thursdayEvents)}
+                {formatTableCell(5, hour, fridayEvents)}
+                {formatTableCell(6, hour, saturdayEvents)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
