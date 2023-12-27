@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2023
 import React from "react";
 
-const ColumnHeader = ({ date, day, selected }) => {
+const TableHeaderCell = ({ date, day, selected }) => {
   return (
     <th
       className={`pl-4 ${
@@ -18,4 +18,4 @@ const ColumnHeader = ({ date, day, selected }) => {
   );
 };
 
-export default ColumnHeader;
+export default TableHeaderCell;

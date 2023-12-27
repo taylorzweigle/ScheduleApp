@@ -1,11 +1,13 @@
 //Taylor Zweigle, 2023
 import React, { useState, useEffect } from "react";
 
-import CalendarHeaderDay from "./internal/CalendarHeaderDay";
-import EventCard from "./internal/EventCard";
+import EventCard from "../cards/EventCard";
 import HeaderControls from "./internal/HeaderControls";
+import TableCell from "./internal/TableCell";
+import TableHeaderCell from "./internal/TableHeaderCell";
+import TableRow from "./internal/TableRow";
 
-import { events } from "../../db/_db";
+import { events } from "../../_db/db";
 
 const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNextWeekClick, onAddEventClick }) => {
   const [selectedWeek, setSelectedWeek] = useState([]);
@@ -62,17 +64,14 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
           hour === events[i].startTime.getHours()
         ) {
           tableCell = (
-            <td
-              className="h-full pl-1 pr-1 border-b border-slate-300 dark:border-slate-600"
-              rowSpan={events[i].endTime.getHours() - events[i].startTime.getHours()}
-            >
+            <TableCell rowSpan={events[i].endTime.getHours() - events[i].startTime.getHours()}>
               <EventCard
                 key={events[i].id}
                 event={events[i].event}
                 startTime={events[i].startTime}
                 endTime={events[i].endTime}
               />
-            </td>
+            </TableCell>
           );
           break;
         } else if (
@@ -85,11 +84,11 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
           tableCell = null;
           break;
         } else {
-          tableCell = <td className="h-16 border-b border-slate-300 dark:border-slate-600">&nbsp;</td>;
+          tableCell = <TableCell>&nbsp;</TableCell>;
         }
       }
     } else {
-      tableCell = <td className="h-16 border-b border-slate-300 dark:border-slate-600">&nbsp;</td>;
+      tableCell = <TableCell>&nbsp;</TableCell>;
     }
 
     return tableCell;
@@ -127,22 +126,22 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
         </div>
         <table className="h-full w-full table-fixed">
           <thead>
-            <tr className="h-16">
+            <TableRow>
               {populateDateArray().map((day) => (
-                <CalendarHeaderDay key={day.day} date={day.date} day={day.day} selected={day.date === selectedDate.date} />
+                <TableHeaderCell key={day.day} date={day.date} day={day.day} selected={day.date === selectedDate.date} />
               ))}
-            </tr>
+            </TableRow>
           </thead>
           <tbody>
-            <tr>
+            <TableRow>
               {weekdays.map((day) => (
                 <td key={day} className="h-16 pr-4 border-b border-slate-300 dark:border-slate-600">
                   &nbsp;
                 </td>
               ))}
-            </tr>
+            </TableRow>
             {hours.map((hour) => (
-              <tr key={hour}>
+              <TableRow key={hour}>
                 {formatTableCell(0, hour, sundayEvents)}
                 {formatTableCell(1, hour, mondayEvents)}
                 {formatTableCell(2, hour, tuesdayEvents)}
@@ -150,7 +149,7 @@ const TimelineCalendar = ({ selectedDate, onTodayClick, onPreviousWeekClick, onN
                 {formatTableCell(4, hour, thursdayEvents)}
                 {formatTableCell(5, hour, fridayEvents)}
                 {formatTableCell(6, hour, saturdayEvents)}
-              </tr>
+              </TableRow>
             ))}
           </tbody>
         </table>
