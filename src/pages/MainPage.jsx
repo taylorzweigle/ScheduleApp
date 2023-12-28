@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 import Avatar from "../components/avatar/Avatar";
+import EventCard from "../components/cards/EventCard";
 import MonthCalendar from "../components/monthCalendar/MonthCalendar";
 import TimelineCalendar from "../components/timelineCalendar/TimelineCalendar";
 import ToggleThemeButton from "../components/buttons/ToggleThemeButton";
@@ -138,6 +139,7 @@ const MainPage = () => {
       <div className="flex-1 bg-white dark:bg-slate-900">
         <TimelineCalendar
           selectedDate={selectedDate}
+          cardTemplate={<EventCard />}
           onTodayClick={handleTodayClick}
           onPreviousWeekClick={handlePreviousWeekClick}
           onNextWeekClick={handleNextWeekClick}
