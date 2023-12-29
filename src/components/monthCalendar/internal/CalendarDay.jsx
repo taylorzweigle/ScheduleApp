@@ -4,7 +4,7 @@ import React from "react";
 const CalendarDay = ({ date, selected, onClick }) => {
   return (
     <td
-      className={`h-12 w-12 rounded-full text-center ${
+      className={`h-10 w-10 rounded-full text-center ${
         selected ? "bg-sky-500" : date ? "hover:bg-sky-100 hover:dark:bg-slate-800" : ""
       }`}
     >

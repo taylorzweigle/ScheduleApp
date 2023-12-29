@@ -16,19 +16,12 @@ const TimelineCalendar = ({
   onNextWeekClick,
   onAddEventClick,
 }) => {
+  const [eventsArray, setEventsArray] = useState([]);
   const [selectedWeek, setSelectedWeek] = useState([]);
 
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   const hours = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-
-  const sundayEvents = events.filter((event) => event.startTime.getDay() === 0);
-  const mondayEvents = events.filter((event) => event.startTime.getDay() === 1);
-  const tuesdayEvents = events.filter((event) => event.startTime.getDay() === 2);
-  const wednesdayEvents = events.filter((event) => event.startTime.getDay() === 3);
-  const thursdayEvents = events.filter((event) => event.startTime.getDay() === 4);
-  const fridayEvents = events.filter((event) => event.startTime.getDay() === 5);
-  const saturdayEvents = events.filter((event) => event.startTime.getDay() === 6);
 
   const formatTime = (time) => `${time % 12 === 0 ? 12 : time % 12}${time >= 12 ? "pm" : "am"} `;
 
@@ -42,6 +35,18 @@ const TimelineCalendar = ({
 
     return clonedElement;
   };
+
+  useEffect(() => {
+    let week = [];
+
+    for (let i = 0; i < 7; i++) {
+      const filteredEvents = events.filter((event) => event.startTime.getDay() === i);
+
+      week.push(filteredEvents);
+    }
+
+    setEventsArray(week);
+  }, []);
 
   useEffect(() => {
     let week = [];
@@ -162,13 +167,12 @@ const TimelineCalendar = ({
             </TableRow>
             {hours.map((hour) => (
               <TableRow key={hour}>
-                {renderTableCell(0, hour, sundayEvents)}
-                {renderTableCell(1, hour, mondayEvents)}
-                {renderTableCell(2, hour, tuesdayEvents)}
-                {renderTableCell(3, hour, wednesdayEvents)}
-                {renderTableCell(4, hour, thursdayEvents)}
-                {renderTableCell(5, hour, fridayEvents)}
-                {renderTableCell(6, hour, saturdayEvents)}
+                {eventsArray.length > 0 &&
+                  eventsArray.map((dayArray) => (
+                    <React.Fragment key={eventsArray.indexOf(dayArray)}>
+                      {renderTableCell(eventsArray.indexOf(dayArray), hour, eventsArray[eventsArray.indexOf(dayArray)])}
+                    </React.Fragment>
+                  ))}
               </TableRow>
             ))}
           </tbody>

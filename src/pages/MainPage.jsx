@@ -8,7 +8,7 @@ import TimelineCalendar from "../components/timelineCalendar/TimelineCalendar";
 import ToggleThemeButton from "../components/buttons/ToggleThemeButton";
 
 const MainPage = () => {
-  const today = new Date();
+  const today = new Date(2023, 11, 11);
 
   const [selectedDate, setSelectedDate] = useState({
     month: today.getMonth(),
@@ -116,8 +116,8 @@ const MainPage = () => {
 
   return (
     <div className="flex flex-row">
-      <div className="w-96 h-screen">&nbsp;</div>
-      <div className="fixed w-96 h-screen bg-white dark:bg-slate-900 border-r border-slate-300 dark:border-slate-600">
+      <div className="w-80 h-screen">&nbsp;</div>
+      <div className="fixed w-80 h-screen bg-white dark:bg-slate-900 border-r border-slate-300 dark:border-slate-600">
         <div className="flex flex-col">
           <div className="flex flex-row justify-between items-center p-4">
             <div className="flex flex-row justify-start items-center gap-2">
