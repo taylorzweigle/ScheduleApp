@@ -6,9 +6,8 @@ import TableCell from "./internal/TableCell";
 import TableHeaderCell from "./internal/TableHeaderCell";
 import TableRow from "./internal/TableRow";
 
-import { events } from "../../_db/db";
-
 const TimelineCalendar = ({
+  events,
   selectedDate,
   cardTemplate,
   onTodayClick,
@@ -21,16 +20,16 @@ const TimelineCalendar = ({
 
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-  const hours = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+  const hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
   const formatTime = (time) => `${time % 12 === 0 ? 12 : time % 12}${time >= 12 ? "pm" : "am"} `;
 
   const renderCardTemplate = (event) => {
     const clonedElement = cloneElement(cardTemplate, {
       key: event.id,
-      event: event.event,
-      startTime: event.startTime,
-      endTime: event.endTime,
+      title: event.title,
+      startTime: new Date(event.startTime),
+      endTime: new Date(event.endTime),
     });
 
     return clonedElement;
@@ -39,14 +38,16 @@ const TimelineCalendar = ({
   useEffect(() => {
     let week = [];
 
-    for (let i = 0; i < 7; i++) {
-      const filteredEvents = events.filter((event) => event.startTime.getDay() === i);
+    if (events) {
+      for (let i = 0; i < 7; i++) {
+        const filteredEvents = events.filter((event) => new Date(event.startTime).getDay() === i);
 
-      week.push(filteredEvents);
+        week.push(filteredEvents);
+      }
+
+      setEventsArray(week);
     }
-
-    setEventsArray(week);
-  }, []);
+  }, [events]);
 
   useEffect(() => {
     let week = [];
@@ -79,19 +80,19 @@ const TimelineCalendar = ({
 
     const isEventInDay = (event, selectedDate) => {
       return (
-        event.startTime.getMonth() === selectedDate.month &&
-        event.startTime.getDate() === selectedDate.date &&
-        event.startTime.getFullYear() === selectedDate.year
+        new Date(event.startTime).getMonth() === selectedDate.month &&
+        new Date(event.startTime).getDate() === selectedDate.date &&
+        new Date(event.startTime).getFullYear() === selectedDate.year
       );
     };
 
     const isCellSelected = (day) => (selectedWeek.length > 0 ? selectedWeek[day].date === selectedDate.date : false);
 
-    const calculateRowSpan = (event) => event.endTime.getHours() - event.startTime.getHours();
+    const calculateRowSpan = (event) => new Date(event.endTime).getHours() - new Date(event.startTime).getHours();
 
     if (events.length > 0 && selectedWeek.length > 0) {
       for (let i = 0; i < events.length; i++) {
-        if (isEventInDay(events[i], selectedWeek[day]) && hour === events[i].startTime.getHours()) {
+        if (isEventInDay(events[i], selectedWeek[day]) && hour === new Date(events[i].startTime).getHours()) {
           tableCell = (
             <TableCell selected={isCellSelected(day)} rowSpan={calculateRowSpan(events[i])}>
               {renderCardTemplate(events[i])}
@@ -100,8 +101,8 @@ const TimelineCalendar = ({
           break;
         } else if (
           isEventInDay(events[i], selectedWeek[day]) &&
-          hour > events[i].startTime.getHours() &&
-          hour < events[i].endTime.getHours()
+          hour > new Date(events[i].startTime).getHours() &&
+          hour < new Date(events[i].endTime).getHours()
         ) {
           tableCell = null;
           break;

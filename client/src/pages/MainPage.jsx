@@ -7,8 +7,8 @@ import MonthCalendar from "../components/monthCalendar/MonthCalendar";
 import TimelineCalendar from "../components/timelineCalendar/TimelineCalendar";
 import ToggleThemeButton from "../components/buttons/ToggleThemeButton";
 
-const MainPage = () => {
-  const today = new Date(2023, 11, 11);
+const MainPage = ({ events }) => {
+  const today = new Date(2024, 0, 1);
 
   const [selectedDate, setSelectedDate] = useState({
     month: today.getMonth(),
@@ -138,6 +138,7 @@ const MainPage = () => {
       </div>
       <div className="flex-1 bg-white dark:bg-slate-900">
         <TimelineCalendar
+          events={events}
           selectedDate={selectedDate}
           cardTemplate={<EventCard />}
           onTodayClick={handleTodayClick}
