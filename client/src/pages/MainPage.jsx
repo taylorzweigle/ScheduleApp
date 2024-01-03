@@ -1,14 +1,16 @@
-//Taylor Zweigle, 2023
+//Taylor Zweigle, 2024
 import React, { useState } from "react";
 
 import Avatar from "../components/avatar/Avatar";
 import EventCard from "../components/cards/EventCard";
+import HeaderControls from "../components/layouts/HeaderControls";
 import MonthCalendar from "../components/monthCalendar/MonthCalendar";
 import TimelineCalendar from "../components/timelineCalendar/TimelineCalendar";
 import ToggleThemeButton from "../components/buttons/ToggleThemeButton";
+import Typography from "../components/typography/Typography";
 
 const MainPage = ({ events }) => {
-  const today = new Date(2024, 0, 1);
+  const today = new Date();
 
   const [selectedDate, setSelectedDate] = useState({
     month: today.getMonth(),
@@ -122,7 +124,9 @@ const MainPage = ({ events }) => {
           <div className="flex flex-row justify-between items-center p-4">
             <div className="flex flex-row justify-start items-center gap-2">
               <Avatar>TZ</Avatar>
-              <p className="text-slate-950 dark:text-white">Taylor Zweigle</p>
+              <Typography variant="body" color="textPrimary">
+                Taylor Zweigle
+              </Typography>
             </div>
             <ToggleThemeButton />
           </div>
@@ -137,15 +141,16 @@ const MainPage = ({ events }) => {
         </div>
       </div>
       <div className="flex-1 bg-white dark:bg-slate-900">
-        <TimelineCalendar
-          events={events}
-          selectedDate={selectedDate}
-          cardTemplate={<EventCard />}
-          onTodayClick={handleTodayClick}
-          onPreviousWeekClick={handlePreviousWeekClick}
-          onNextWeekClick={handleNextWeekClick}
-          onAddEventClick={handleAddEventClick}
-        />
+        <div className="flex flex-col g-0">
+          <HeaderControls
+            selectedDate={selectedDate}
+            onTodayClick={handleTodayClick}
+            onPreviousWeekClick={handlePreviousWeekClick}
+            onNextWeekClick={handleNextWeekClick}
+            onAddEventClick={handleAddEventClick}
+          />
+          <TimelineCalendar events={events} selectedDate={selectedDate} cardTemplate={<EventCard />} />
+        </div>
       </div>
     </div>
   );

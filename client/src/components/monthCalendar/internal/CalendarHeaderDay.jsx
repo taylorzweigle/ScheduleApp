@@ -1,10 +1,14 @@
-//Taylor Zweigle, 2023
+//Taylor Zweigle, 2024
 import React from "react";
+
+import Typography from "../../typography/Typography";
 
 const CalendarHeaderDay = ({ day }) => {
   return (
     <th className="h-10 w-10">
-      <p className="text-slate-950 dark:text-slate-300">{day}</p>
+      <Typography variant="body" color="textPrimary">
+        {day}
+      </Typography>
     </th>
   );
 };

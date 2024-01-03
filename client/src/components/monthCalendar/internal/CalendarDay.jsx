@@ -1,5 +1,7 @@
-//Taylor Zweigle, 2023
+//Taylor Zweigle, 2024
 import React from "react";
+
+import Typography from "../../typography/Typography";
 
 const CalendarDay = ({ date, selected, onClick }) => {
   return (
@@ -9,7 +11,9 @@ const CalendarDay = ({ date, selected, onClick }) => {
       }`}
     >
       <div className="cursor-pointer" onClick={() => onClick(date)}>
-        <p className={`${selected ? "text-white" : "text-slate-950 dark:text-white"}`}>{date}</p>
+        <Typography variant="body" color={selected ? "white" : "textPrimary"}>
+          {date}
+        </Typography>
       </div>
     </td>
   );

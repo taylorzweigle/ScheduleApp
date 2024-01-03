@@ -1,4 +1,4 @@
-//Taylor Zweigle, 2023
+//Taylor Zweigle, 2024
 import React from "react";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -8,6 +8,7 @@ import CalendarDay from "./internal/CalendarDay";
 import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
 import IconButton from "../buttons/IconButton";
+import Typography from "../typography/Typography";
 
 const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, onCalendarDayClick }) => {
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -71,7 +72,7 @@ const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, o
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row justify-between items-center">
-        <p className="text-lg text-slate-950 dark:text-white">{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
+        <Typography variant="heading" color="textPrimary">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
         <div className="flex flex-row gap-0">
           <IconButton icon={<ChevronLeftIcon />} onClick={onPreviousMonthClick} />
           <IconButton icon={<ChevronRightIcon />} onClick={onNextMonthClick} />

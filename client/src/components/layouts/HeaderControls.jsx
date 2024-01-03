@@ -1,11 +1,12 @@
-//Taylor Zweigle, 2023
+//Taylor Zweigle, 2024
 import React from "react";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import Button from "../../buttons/Button";
-import IconButton from "../../buttons/IconButton";
+import Button from "../buttons/Button";
+import IconButton from "../buttons/IconButton";
+import Typography from "../typography/Typography";
 
 const HeaderControls = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNextWeekClick, onAddEventClick }) => {
   const months = [
@@ -25,7 +26,7 @@ const HeaderControls = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNex
 
   return (
     <div className="flex flex-row justify-between items-center p-4 bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-600">
-      <p className="text-2xl text-slate-950 dark:text-white">{`${months[selectedDate.month]} ${selectedDate.year}`}</p>
+      <Typography variant="title" color="textPrimary">{`${months[selectedDate.month]} ${selectedDate.year}`}</Typography>
       <div className="flex flex-row items-center gap-4">
         <div className="flex flex-row items-center gap-0">
           <IconButton color="primary" icon={<ChevronLeftIcon />} onClick={onPreviousWeekClick} />

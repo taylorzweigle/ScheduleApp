@@ -1,20 +1,13 @@
-//Taylor Zweigle, 2023
+//Taylor Zweigle, 2024
 import React, { useState, useEffect, cloneElement } from "react";
 
-import HeaderControls from "./internal/HeaderControls";
 import TableCell from "./internal/TableCell";
 import TableHeaderCell from "./internal/TableHeaderCell";
 import TableRow from "./internal/TableRow";
 
-const TimelineCalendar = ({
-  events,
-  selectedDate,
-  cardTemplate,
-  onTodayClick,
-  onPreviousWeekClick,
-  onNextWeekClick,
-  onAddEventClick,
-}) => {
+import Typography from "../typography/Typography";
+
+const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
   const [eventsArray, setEventsArray] = useState([]);
   const [selectedWeek, setSelectedWeek] = useState([]);
 
@@ -60,13 +53,13 @@ const TimelineCalendar = ({
       let year = selectedDate.year;
 
       if (date < 1) {
-        month = selectedDate.month - 1;
+        month = selectedDate.month === 0 ? 11 : selectedDate.month - 1;
         date = date + (32 - new Date(selectedDate.year, selectedDate.month - 1, 32).getDate());
-        year = selectedDate.month < 0 ? selectedDate.year - 1 : selectedDate.year;
+        year = selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year;
       } else if (date > 31) {
-        month = selectedDate.month + 1;
+        month = (selectedDate.month + 1) % 12;
         date = date - (32 - new Date(selectedDate.year, selectedDate.month, 32).getDate());
-        year = selectedDate.month > 11 ? selectedDate.year + 1 : selectedDate.year;
+        year = selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year;
       }
 
       week.push({ month: month, date: date, year: year });
@@ -130,55 +123,58 @@ const TimelineCalendar = ({
   };
 
   return (
-    <div className="flex flex-col g-0">
-      <HeaderControls
-        selectedDate={selectedDate}
-        onTodayClick={onTodayClick}
-        onPreviousWeekClick={onPreviousWeekClick}
-        onNextWeekClick={onNextWeekClick}
-        onAddEventClick={onAddEventClick}
-      />
-      <div className="flex flex-row gap-0">
-        <div className="flex flex-col w-24 pt-12 pb-4 pr-4 items-end">
-          <div className="h-full text-slate-950 dark:text-white">All Day</div>
-          {hours.map((hour) => (
-            <div key={hour} className="h-full text-slate-950 dark:text-white">
-              {formatTime(hour)}
-            </div>
-          ))}
+    <div className="flex flex-row gap-0">
+      <div className="flex flex-col w-24 pt-12 pb-4 pr-4 items-end">
+        <div className="h-full">
+          <Typography variant="body" color="textPrimary">
+            All Day
+          </Typography>
         </div>
-        <table className="h-full w-full table-fixed">
-          <thead>
-            <TableRow>
-              {populateDateArray().map((day) => (
-                <TableHeaderCell key={day.day} date={day.date} day={day.day} selected={day.date === selectedDate.date} />
-              ))}
-            </TableRow>
-          </thead>
-          <tbody>
-            <TableRow>
-              {weekdays.map((day) => (
-                <TableCell
-                  selected={selectedWeek.length > 0 ? selectedWeek[weekdays.indexOf(day)].date === selectedDate.date : false}
-                  key={day}
-                >
-                  &nbsp;
-                </TableCell>
-              ))}
-            </TableRow>
-            {hours.map((hour) => (
-              <TableRow key={hour}>
-                {eventsArray.length > 0 &&
-                  eventsArray.map((dayArray) => (
-                    <React.Fragment key={eventsArray.indexOf(dayArray)}>
-                      {renderTableCell(eventsArray.indexOf(dayArray), hour, eventsArray[eventsArray.indexOf(dayArray)])}
-                    </React.Fragment>
-                  ))}
-              </TableRow>
-            ))}
-          </tbody>
-        </table>
+        {hours.map((hour) => (
+          <div key={hour} className="h-full">
+            <Typography variant="body" color="textPrimary">
+              {formatTime(hour)}
+            </Typography>
+          </div>
+        ))}
       </div>
+      <table className="h-full w-full table-fixed">
+        <thead>
+          <TableRow>
+            {populateDateArray().map((day) => (
+              <TableHeaderCell
+                key={day.day}
+                date={day.date}
+                day={day.day}
+                today={day.date === new Date().getDate()}
+                selected={day.date === selectedDate.date}
+              />
+            ))}
+          </TableRow>
+        </thead>
+        <tbody>
+          <TableRow>
+            {weekdays.map((day) => (
+              <TableCell
+                selected={selectedWeek.length > 0 ? selectedWeek[weekdays.indexOf(day)].date === selectedDate.date : false}
+                key={day}
+              >
+                &nbsp;
+              </TableCell>
+            ))}
+          </TableRow>
+          {hours.map((hour) => (
+            <TableRow key={hour}>
+              {eventsArray.length > 0 &&
+                eventsArray.map((dayArray) => (
+                  <React.Fragment key={eventsArray.indexOf(dayArray)}>
+                    {renderTableCell(eventsArray.indexOf(dayArray), hour, eventsArray[eventsArray.indexOf(dayArray)])}
+                  </React.Fragment>
+                ))}
+            </TableRow>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
