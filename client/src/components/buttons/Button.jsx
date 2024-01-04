@@ -1,8 +1,8 @@
-//Taylor Zweigle, 2023
+//Taylor Zweigle, 2024
 import React from "react";
 
 const Button = ({ variant, children, onClick }) => {
-  let buttonStyle = "";
+  let buttonStyle = "text-sky-500 hover:bg-sky-100 hover:dark:bg-slate-800";
 
   switch (variant) {
     case "contained":
@@ -15,8 +15,7 @@ const Button = ({ variant, children, onClick }) => {
       buttonStyle = "text-sky-500 hover:bg-sky-100 hover:dark:bg-slate-800";
       break;
     default:
-      buttonStyle = "text-sky-500 hover:bg-sky-100 hover:dark:bg-slate-800";
-      break;
+      throw Error(`Component does not support ${variant} style`);
   }
 
   return (

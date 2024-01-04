@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-const Typography = ({ variant, color, children }) => {
+const Typography = ({ children, variant, color }) => {
   const getVariant = (variant) => {
     let variantStyle = "text-base";
 
