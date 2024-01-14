@@ -3,11 +3,12 @@ import React, { useState } from "react";
 
 import Avatar from "../components/avatar/Avatar";
 import EventCard from "../components/cards/EventCard";
-import HeaderControls from "../components/layouts/HeaderControls";
 import MonthCalendar from "../components/monthCalendar/MonthCalendar";
 import TimelineCalendar from "../components/timelineCalendar/TimelineCalendar";
 import ToggleThemeButton from "../components/buttons/ToggleThemeButton";
 import Typography from "../components/typography/Typography";
+
+import HeaderControls from "../recipes/HeaderControls";
 
 const MainPage = ({ events }) => {
   const today = new Date();
@@ -112,10 +113,6 @@ const MainPage = ({ events }) => {
     });
   };
 
-  const handleAddEventClick = () => {
-    console.log("ADD EVENT");
-  };
-
   return (
     <div className="flex flex-row">
       <div className="w-80 h-screen">&nbsp;</div>
@@ -147,7 +144,6 @@ const MainPage = ({ events }) => {
             onTodayClick={handleTodayClick}
             onPreviousWeekClick={handlePreviousWeekClick}
             onNextWeekClick={handleNextWeekClick}
-            onAddEventClick={handleAddEventClick}
           />
           <TimelineCalendar events={events} selectedDate={selectedDate} cardTemplate={<EventCard />} />
         </div>

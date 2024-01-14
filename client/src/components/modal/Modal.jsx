@@ -4,7 +4,7 @@ import React from "react";
 import Button from "../buttons/Button";
 import Typography from "../typography/Typography";
 
-const Modal = ({ children, open, title, action, secondaryAction, onAction, onSecondaryAction, onClose }) => {
+const Modal = ({ children, open, hasSecondary, title, action, secondaryAction, onAction, onSecondaryAction, onClose }) => {
   return (
     <div
       className={`fixed flex z-auto left-0 top-0 w-full h-full overflow-auto bg-slate-950/50 dark:bg-slate-500/50 drop-shadow-md ${
@@ -21,9 +21,11 @@ const Modal = ({ children, open, title, action, secondaryAction, onAction, onSec
             <Button variant="text" onClick={onClose}>
               Cancel
             </Button>
-            <Button variant="outlined" onClick={onSecondaryAction}>
-              {secondaryAction}
-            </Button>
+            {hasSecondary && (
+              <Button variant="outlined" onClick={onSecondaryAction}>
+                {secondaryAction}
+              </Button>
+            )}
             <Button variant="contained" onClick={onAction}>
               {action}
             </Button>
