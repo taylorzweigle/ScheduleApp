@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-import Typography from "../typography/Typography";
+import Typography from "../../core/typography/Typography";
 
 const EventCard = ({ title, startTime, endTime, onClick }) => {
   const formatTime = (time) => `${time % 12 === 0 ? 12 : time % 12}${time >= 12 ? "pm" : "am"} `;

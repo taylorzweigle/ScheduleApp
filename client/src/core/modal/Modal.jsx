@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-import Button from "../buttons/Button";
+import Button from "../../core/buttons/Button";
 import Typography from "../typography/Typography";
 
 const Modal = ({ children, open, hasSecondary, title, action, secondaryAction, onAction, onSecondaryAction, onClose }) => {

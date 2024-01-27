@@ -7,8 +7,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CalendarDay from "./internal/CalendarDay";
 import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 
-import IconButton from "../buttons/IconButton";
-import Typography from "../typography/Typography";
+import IconButton from "../../core/buttons/IconButton";
+import Typography from "../../core/typography/Typography";
 
 const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, onCalendarDayClick }) => {
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];

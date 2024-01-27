@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import Button from "../components/buttons/Button";
-import IconButton from "../components/buttons/IconButton";
-import Typography from "../components/typography/Typography";
+import Button from "../../core/buttons/Button";
+import IconButton from "../../core/buttons/IconButton";
+import Typography from "../../core/typography/Typography";
 
-import EventModal from "./EventModal";
+import EventModal from "../modals/EventModal";
 
 const HeaderControls = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNextWeekClick }) => {
   const [open, setOpen] = useState(false);

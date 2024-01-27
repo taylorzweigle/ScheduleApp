@@ -5,9 +5,9 @@ import TableCell from "./internal/TableCell";
 import TableHeaderCell from "./internal/TableHeaderCell";
 import TableRow from "./internal/TableRow";
 
-import Typography from "../typography/Typography";
+import Typography from "../../core/typography/Typography";
 
-import EventModal from "../../recipes/EventModal";
+import EventModal from "../modals/EventModal";
 
 const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
   const [open, setOpen] = useState(false);

@@ -1,7 +1,7 @@
 //Taylor Zweigle, 2024
 import React from "react";
 
-import Typography from "../../typography/Typography";
+import Typography from "../../../core/typography/Typography";
 
 const TableHeaderCell = ({ date, day, today, selected }) => {
   return (
