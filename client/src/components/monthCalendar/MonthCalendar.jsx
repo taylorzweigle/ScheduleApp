@@ -10,23 +10,23 @@ import CalendarHeaderDay from "./internal/CalendarHeaderDay";
 import IconButton from "../../core/buttons/IconButton";
 import Typography from "../../core/typography/Typography";
 
+export const months = [
+  "January",
+  "Feburary",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, onCalendarDayClick }) => {
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-  const months = [
-    "January",
-    "Feburary",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
 

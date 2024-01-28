@@ -23,7 +23,8 @@ const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
 
   const handleEventClick = (event) => {
     setData({
-      event: event.title,
+      _id: event._id,
+      title: event.title,
       tag: event.tag,
       date: event.startTime,
       startTime: event.startTime,

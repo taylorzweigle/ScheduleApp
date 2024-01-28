@@ -28,18 +28,6 @@ const HeaderControls = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNex
     "December",
   ];
 
-  const handleAction = () => {
-    setOpen(false);
-  };
-
-  const handleSecondaryAction = () => {
-    setOpen(false);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <>
       <div className="flex flex-row justify-between items-center p-4 bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-600">
@@ -57,13 +45,7 @@ const HeaderControls = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNex
           </Button>
         </div>
       </div>
-      <EventModal
-        type="Add"
-        open={open}
-        onAction={handleAction}
-        onSecondaryAction={handleSecondaryAction}
-        onClose={handleClose}
-      />
+      <EventModal type="Add" open={open} onAction={() => setOpen(false)} onClose={() => setOpen(false)} />
     </>
   );
 };
