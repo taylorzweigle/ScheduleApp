@@ -25,9 +25,9 @@ export const months = [
   "December",
 ];
 
-const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, onCalendarDayClick }) => {
-  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+export const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+const MonthCalendar = ({ selectedDate, onPreviousMonthClick, onNextMonthClick, onCalendarDayClick }) => {
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
 
   const getDayOfWeekOfMonthStart = (year, month) => new Date(year, month).getDay();
