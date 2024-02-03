@@ -11,7 +11,7 @@ import EventModal from "../modals/EventModal";
 
 const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
   const [open, setOpen] = useState(false);
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null);
   const [eventsArray, setEventsArray] = useState([]);
   const [selectedWeek, setSelectedWeek] = useState([]);
 

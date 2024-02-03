@@ -19,7 +19,9 @@ const EventModal = ({ type, data, open, onAction, onSecondaryAction, onClose }) 
 
   const [title, setTitle] = useState("");
   const [tag, setTag] = useState("");
+  const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
+  const [year, setYear] = useState("");
   const [startHours, setStartHours] = useState("");
   const [startMinutes, setStartMinutes] = useState("");
   const [startPeriod, setStartPeriod] = useState("");
@@ -31,11 +33,9 @@ const EventModal = ({ type, data, open, onAction, onSecondaryAction, onClose }) 
     if (data) {
       setTitle(data.title);
       setTag(data.tag);
-      setDate(
-        `${months[new Date(data.startTime).getMonth()]} ${new Date(data.startTime).getDate()}, ${new Date(
-          data.startTime
-        ).getFullYear()}`
-      );
+      setMonth(months[new Date(data.startTime).getMonth()]);
+      setDate(new Date(data.startTime).getDate());
+      setYear(new Date(data.startTime).getFullYear());
       setStartHours(
         new Date(data.startTime).getHours() % 12 === 0 ? "12" : (new Date(data.startTime).getHours() % 12).toString()
       );
@@ -53,14 +53,14 @@ const EventModal = ({ type, data, open, onAction, onSecondaryAction, onClose }) 
     const newEvent = {
       title: title,
       tag: tag,
-      date: date,
+      date: new Date(`${month} ${date}, ${year}`),
       startTime: new Date(
-        `${date} ${
+        `${`${month} ${date}, ${year}`} ${
           startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
         }:${startMinutes}:00`
       ),
       endTime: new Date(
-        `${date} ${
+        `${`${month} ${date}, ${year}`} ${
           endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
         }:${endMinutes}:00`
       ),
@@ -83,14 +83,14 @@ const EventModal = ({ type, data, open, onAction, onSecondaryAction, onClose }) 
     const newEvent = {
       event: title,
       tag: tag,
-      date: date,
+      date: new Date(`${month} ${date}, ${year}`),
       startTime: new Date(
-        `${date} ${
+        `${`${month} ${date}, ${year}`} ${
           startPeriod === "PM" ? (startHours !== "12" ? (parseInt(startHours) + 12).toString() : startHours) : startHours
         }:${startMinutes}:00`
       ),
       endTime: new Date(
-        `${date} ${
+        `${`${month} ${date}, ${year}`} ${
           endPeriod === "PM" ? (endHours !== "12" ? (parseInt(endHours) + 12).toString() : endHours) : endHours
         }:${endMinutes}:00`
       ),
@@ -130,7 +130,9 @@ const EventModal = ({ type, data, open, onAction, onSecondaryAction, onClose }) 
   const clearForm = () => {
     setTitle("");
     setTag("");
+    setMonth("");
     setDate("");
+    setYear("");
     setStartHours("");
     setStartMinutes("");
     setStartPeriod("");
@@ -152,9 +154,17 @@ const EventModal = ({ type, data, open, onAction, onSecondaryAction, onClose }) 
     >
       <form onSubmit={type === "Edit" ? handleOnUpdate : handleOnSave}>
         <div className="flex flex-col gap-8">
-          <TextInput label="Event" value={title} onChange={(e) => setTitle(e.target.value)} />
-          <TextInput label="Tag" value={tag} onChange={(e) => setTag(e.target.value)} />
-          <DateInput label="Date" value={date} onChange={(e) => setDate(e.target.value)} />
+          <TextInput label="Title" showLabel value={title} onChange={(e) => setTitle(e.target.value)} />
+          <TextInput label="Tag" showLabel value={tag} onChange={(e) => setTag(e.target.value)} />
+          <DateInput
+            label="Date"
+            month={month}
+            date={date}
+            year={year}
+            onMonthChange={(e) => setMonth(e.target.value)}
+            onDateChange={(e) => setDate(e.target.value)}
+            onYearChange={(e) => setYear(e.target.value)}
+          />
           <TimeInput
             label="Start Time"
             hour={startHours}

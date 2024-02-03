@@ -1,35 +1,24 @@
 //Taylor Zweigle, 2024
-import React, { useState } from "react";
+import React from "react";
 
-import { useSelectedDateContext } from "../../hooks/useSelectedDateContext";
-
+import SelectInput from "../selectInput/SelectInput";
+import TextInput from "../textInput/TextInput";
 import Typography from "../typography/Typography";
 
-import MonthCalendar, { months } from "../../components/monthCalendar/MonthCalendar";
+import { months } from "../../components/monthCalendar/MonthCalendar";
 
-const DateInput = ({ label, value, onChange }) => {
-  const { selectedDate } = useSelectedDateContext();
-
-  const [open, setOpen] = useState(false);
-
+const DateInput = ({ label, month, date, year, onMonthChange, onDateChange, onYearChange }) => {
   return (
-    <>
-      <div className="flex flex-col gap-2 w-full">
-        <Typography variant="body" color="textPrimary">
-          {label}
-        </Typography>
-        <input
-          id={label}
-          value={value ? value : `${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`}
-          onChange={onChange}
-          onClick={() => setOpen(!open)}
-          className="h-12 w-full pl-4 pr-4 rounded-lg border bg-white dark:bg-slate-950 border-slate-800 dark:border-slate-600"
-        ></input>
+    <div className="flex flex-col gap-2">
+      <Typography variant="body" color="textPrimary">
+        {label}
+      </Typography>
+      <div className="flex flex-row gap-4">
+        <SelectInput label="month" value={month} items={["", ...months]} onChange={onMonthChange} />
+        <TextInput label="date" value={date} onChange={onDateChange} />
+        <TextInput label="year" value={year} onChange={onYearChange} />
       </div>
-      <div className={`${open ? "block" : "hidden"}`}>
-        <MonthCalendar selectedDate={selectedDate} />
-      </div>
-    </>
+    </div>
   );
 };
 
