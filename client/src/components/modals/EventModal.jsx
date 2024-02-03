@@ -5,6 +5,7 @@ import * as Actions from "../../actions";
 
 import { useEventsContext } from "../../hooks/useEventsContext";
 
+import DateInput from "../../core/dateInput/DateInput";
 import Modal from "../../core/modal/Modal";
 import TextInput from "../../core/textInput/TextInput";
 import TimeInput from "../../core/timeInput/TimeInput";
@@ -153,7 +154,7 @@ const EventModal = ({ type, data, open, onAction, onSecondaryAction, onClose }) 
         <div className="flex flex-col gap-8">
           <TextInput label="Event" value={title} onChange={(e) => setTitle(e.target.value)} />
           <TextInput label="Tag" value={tag} onChange={(e) => setTag(e.target.value)} />
-          <TextInput label="Date" value={date} onChange={(e) => setDate(e.target.value)} />
+          <DateInput label="Date" value={date} onChange={(e) => setDate(e.target.value)} />
           <TimeInput
             label="Start Time"
             hour={startHours}

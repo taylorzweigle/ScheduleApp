@@ -1,25 +1,27 @@
 //Taylor Zweigle, 2024
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 
 import * as Actions from "./actions";
 
 import { useEventsContext } from "./hooks/useEventsContext";
+import { useSelectedDateContext } from "./hooks/useSelectedDateContext";
 
 import { getEvents } from "./api/events";
 
 import Avatar from "./core/avatar/Avatar";
-import ToggleThemeButton from "./core/buttons/ToggleThemeButton";
 import Typography from "./core/typography/Typography";
 
 import EventCard from "./components/cards/EventCard";
 import HeaderControls from "./components/layouts/HeaderControls";
 import MonthCalendar from "./components/monthCalendar/MonthCalendar";
 import TimelineCalendar from "./components/timelineCalendar/TimelineCalendar";
+import ToggleThemeButton from "./components/buttons/ToggleThemeButton";
 
 const App = () => {
-  const today = new Date();
+  const today = useMemo(() => new Date(), []);
 
   const { events, dispatch } = useEventsContext();
+  const { selectedDate, selectedDateDispatch } = useSelectedDateContext();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -31,12 +33,17 @@ const App = () => {
     fetchEvents();
   }, [dispatch]);
 
-  const [selectedDate, setSelectedDate] = useState({
-    month: today.getMonth(),
-    date: today.getDate(),
-    year: today.getFullYear(),
-    weekday: today.getDay(),
-  });
+  useEffect(() => {
+    selectedDateDispatch({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: today.getMonth(),
+        date: today.getDate(),
+        year: today.getFullYear(),
+        weekday: today.getDay(),
+      },
+    });
+  }, [today, selectedDateDispatch]);
 
   const getMonthLength = (year, month) => 32 - new Date(year, month, 32).getDate();
 
@@ -46,7 +53,15 @@ const App = () => {
     let year = today.getFullYear();
     let weekday = today.getDay();
 
-    setSelectedDate({ month: month, date: date, year: year, weekday: weekday });
+    selectedDateDispatch({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: month,
+        date: date,
+        year: year,
+        weekday: weekday,
+      },
+    });
   };
 
   const handlePreviousWeekClick = () => {
@@ -59,11 +74,14 @@ const App = () => {
 
     let year = selectedDate.date < 8 && selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year;
 
-    setSelectedDate({
-      month: month,
-      date: date,
-      year: year,
-      weekday: new Date(year, month, date).getDay(),
+    selectedDateDispatch({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: month,
+        date: date,
+        year: year,
+        weekday: new Date(year, month, date).getDay(),
+      },
     });
   };
 
@@ -85,11 +103,14 @@ const App = () => {
         ? selectedDate.year + 1
         : selectedDate.year;
 
-    setSelectedDate({
-      month: month,
-      date: date,
-      year: year,
-      weekday: new Date(year, month, date).getDay(),
+    selectedDateDispatch({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: month,
+        date: date,
+        year: year,
+        weekday: new Date(year, month, date).getDay(),
+      },
     });
   };
 
@@ -98,11 +119,14 @@ const App = () => {
     let date = 1;
     let year = selectedDate.month === 0 ? selectedDate.year - 1 : selectedDate.year;
 
-    setSelectedDate({
-      month: month,
-      date: date,
-      year: year,
-      weekday: new Date(year, month, date).getDay(),
+    selectedDateDispatch({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: month,
+        date: date,
+        year: year,
+        weekday: new Date(year, month, date).getDay(),
+      },
     });
   };
 
@@ -111,11 +135,14 @@ const App = () => {
     let date = 1;
     let year = selectedDate.month === 11 ? selectedDate.year + 1 : selectedDate.year;
 
-    setSelectedDate({
-      month: month,
-      date: date,
-      year: year,
-      weekday: new Date(year, month, date).getDay(),
+    selectedDateDispatch({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: month,
+        date: date,
+        year: year,
+        weekday: new Date(year, month, date).getDay(),
+      },
     });
   };
 
@@ -123,11 +150,14 @@ const App = () => {
     let month = selectedDate.month;
     let year = selectedDate.year;
 
-    setSelectedDate({
-      month: month,
-      date: date,
-      year: year,
-      weekday: new Date(year, month, date).getDay(),
+    selectedDateDispatch({
+      type: Actions.SET_SELECTED_DATE,
+      payload: {
+        month: month,
+        date: date,
+        year: year,
+        weekday: new Date(year, month, date).getDay(),
+      },
     });
   };
 
