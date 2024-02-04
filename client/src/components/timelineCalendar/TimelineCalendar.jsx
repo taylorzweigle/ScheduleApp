@@ -34,6 +34,16 @@ const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
     setOpen(true);
   };
 
+  const handleHourClick = (hour, day) => {
+    setData({
+      date: new Date(selectedWeek[day].year, selectedWeek[day].month, selectedWeek[day].date),
+      startTime: new Date(selectedWeek[day].year, selectedWeek[day].month, selectedWeek[day].date, hours[hour]),
+      endTime: new Date(selectedWeek[day].year, selectedWeek[day].month, selectedWeek[day].date, hours[hour + 1]),
+    });
+
+    setOpen(true);
+  };
+
   const handleAction = () => {
     setOpen(false);
   };
@@ -131,11 +141,19 @@ const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
           tableCell = null;
           break;
         } else {
-          tableCell = <TableCell selected={isCellSelected(day)}>&nbsp;</TableCell>;
+          tableCell = (
+            <TableCell selected={isCellSelected(day)} hover onClick={() => handleHourClick(i, day)}>
+              &nbsp;
+            </TableCell>
+          );
         }
       }
     } else {
-      tableCell = <TableCell selected={isCellSelected(day)}>&nbsp;</TableCell>;
+      tableCell = (
+        <TableCell selected={isCellSelected(day)} hover onClick={() => handleHourClick(0, day)}>
+          &nbsp;
+        </TableCell>
+      );
     }
 
     return tableCell;
@@ -188,8 +206,10 @@ const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
             <TableRow>
               {weekdays.map((day) => (
                 <TableCell
-                  selected={selectedWeek.length > 0 ? selectedWeek[weekdays.indexOf(day)].date === selectedDate.date : false}
                   key={day}
+                  selected={selectedWeek.length > 0 ? selectedWeek[weekdays.indexOf(day)].date === selectedDate.date : false}
+                  hover
+                  onClick={() => handleHourClick(0, weekdays.indexOf(day))}
                 >
                   &nbsp;
                 </TableCell>
