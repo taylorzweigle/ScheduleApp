@@ -45,7 +45,17 @@ const HeaderControls = ({ selectedDate, onTodayClick, onPreviousWeekClick, onNex
           </Button>
         </div>
       </div>
-      <EventModal type="Add" open={open} onAction={() => setOpen(false)} onClose={() => setOpen(false)} />
+      <EventModal
+        type="Add"
+        data={{
+          date: selectedDate
+            ? new Date(`${months[selectedDate.month]} ${selectedDate.date}, ${selectedDate.year}`)
+            : new Date(),
+        }}
+        open={open}
+        onAction={() => setOpen(false)}
+        onClose={() => setOpen(false)}
+      />
     </>
   );
 };

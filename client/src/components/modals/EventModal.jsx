@@ -31,19 +31,21 @@ const EventModal = ({ type, data, open, onAction, onSecondaryAction, onClose }) 
 
   useEffect(() => {
     if (data) {
-      setTitle(data.title);
-      setTag(data.tag);
-      setMonth(months[new Date(data.startTime).getMonth()]);
-      setDate(new Date(data.startTime).getDate());
-      setYear(new Date(data.startTime).getFullYear());
-      setStartHours(
-        new Date(data.startTime).getHours() % 12 === 0 ? "12" : (new Date(data.startTime).getHours() % 12).toString()
-      );
-      setStartMinutes(new Date(data.startTime).getMinutes() === 0 ? "00" : "30");
-      setStartPeriod(new Date(data.startTime).getHours() >= 12 ? "PM" : "AM");
-      setEndHours(new Date(data.endTime).getHours() % 12 === 0 ? "12" : (new Date(data.endTime).getHours() % 12).toString());
-      setEndMinutes(new Date(data.endTime).getMinutes() === 0 ? "00" : "30");
-      setEndPeriod(new Date(data.endTime).getHours() >= 12 ? "PM" : "AM");
+      data.title && setTitle(data.title);
+      data.tag && setTag(data.tag);
+      data.date && setMonth(months[new Date(data.date).getMonth()]);
+      data.date && setDate(new Date(data.date).getDate());
+      data.date && setYear(new Date(data.date).getFullYear());
+      data.startTime &&
+        setStartHours(
+          new Date(data.startTime).getHours() % 12 === 0 ? "12" : (new Date(data.startTime).getHours() % 12).toString()
+        );
+      data.startTime && setStartMinutes(new Date(data.startTime).getMinutes() === 0 ? "00" : "30");
+      data.startTime && setStartPeriod(new Date(data.startTime).getHours() >= 12 ? "PM" : "AM");
+      data.endTime &&
+        setEndHours(new Date(data.endTime).getHours() % 12 === 0 ? "12" : (new Date(data.endTime).getHours() % 12).toString());
+      data.endTime && setEndMinutes(new Date(data.endTime).getMinutes() === 0 ? "00" : "30");
+      data.endTime && setEndPeriod(new Date(data.endTime).getHours() >= 12 ? "PM" : "AM");
     }
   }, [data]);
 

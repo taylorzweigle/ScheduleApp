@@ -22,7 +22,12 @@ export const selectedDateReducer = (state, action) => {
 };
 
 export const SelectedDateContextProvider = ({ children }) => {
-  const [selectedDate, selectedDateDispatch] = useReducer(selectedDateReducer, { month: 11, date: 0, year: 0, weekday: 0 });
+  const [selectedDate, selectedDateDispatch] = useReducer(selectedDateReducer, {
+    month: new Date().getMonth(),
+    date: new Date().getDate(),
+    year: new Date().getFullYear(),
+    weekday: new Date().getDay(),
+  });
 
   return <SelectedDateContext.Provider value={{ selectedDate, selectedDateDispatch }}>{children}</SelectedDateContext.Provider>;
 };
