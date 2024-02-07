@@ -50,6 +50,8 @@ const EventModal = ({ type, data, open, onAction, onSecondaryAction, onClose }) 
   }, [data]);
 
   const handleOnSave = async (e) => {
+    console.log("handleOnSave");
+
     e.preventDefault();
 
     const newEvent = {
@@ -80,6 +82,8 @@ const EventModal = ({ type, data, open, onAction, onSecondaryAction, onClose }) 
   };
 
   const handleOnUpdate = async (e) => {
+    console.log("handleOnUpdate");
+
     e.preventDefault();
 
     const newEvent = {

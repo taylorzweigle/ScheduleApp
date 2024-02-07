@@ -8,16 +8,14 @@ const TableCell = ({ children, rowSpan, selected, hover, onClick }) => {
 
   return (
     <td
-      className={`h-full border-b border-slate-300 dark:border-slate-600 ${selected && "bg-slate-100 dark:bg-slate-800"} ${
-        hover && "hover:border-2 hover:border-sky-500 hover:dark:border-sky-300 cursor-pointer"
-      }`}
+      className={`h-full border-b border-slate-300 dark:border-slate-600 ${selected && "bg-slate-100 dark:bg-slate-800"}`}
       rowSpan={rowSpan}
       onClick={onClick}
       onMouseOver={() => setIsHover(true)}
       onMouseOut={() => setIsHover(false)}
     >
       {hover && isHover && (
-        <div className="flex w-full h-full justify-center items-center text-sky-500 dark:text-sky-300">
+        <div className="flex w-full h-full justify-center items-center text-sky-500 dark:text-sky-300 hover:border-2 hover:border-sky-500 hover:dark:border-sky-300 rounded-md cursor-pointer">
           <AddIcon fontSize="small" />
         </div>
       )}

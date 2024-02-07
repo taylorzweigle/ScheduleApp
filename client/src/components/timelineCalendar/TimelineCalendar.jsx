@@ -11,17 +11,20 @@ import EventModal from "../modals/EventModal";
 
 const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
   const [open, setOpen] = useState(false);
+  const [modal, setModal] = useState("");
   const [data, setData] = useState(null);
   const [eventsArray, setEventsArray] = useState([]);
   const [selectedWeek, setSelectedWeek] = useState([]);
 
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-  const hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+  const hours = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
   const formatTime = (time) => `${time % 12 === 0 ? 12 : time % 12}${time >= 12 ? "pm" : "am"} `;
 
   const handleEventClick = (event) => {
+    setModal("Edit");
+
     setData({
       _id: event._id,
       title: event.title,
@@ -35,24 +38,32 @@ const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
   };
 
   const handleHourClick = (hour, day) => {
+    setModal("Add");
+
     setData({
-      date: new Date(selectedWeek[day].year, selectedWeek[day].month, selectedWeek[day].date),
-      startTime: new Date(selectedWeek[day].year, selectedWeek[day].month, selectedWeek[day].date, hours[hour]),
-      endTime: new Date(selectedWeek[day].year, selectedWeek[day].month, selectedWeek[day].date, hours[hour + 1]),
+      date: new Date(selectedWeek[day].year, selectedWeek[day].month, selectedWeek[day].date).toUTCString(),
+      startTime: new Date(selectedWeek[day].year, selectedWeek[day].month, selectedWeek[day].date, hour).toUTCString(),
+      endTime: new Date(selectedWeek[day].year, selectedWeek[day].month, selectedWeek[day].date, hour + 1).toUTCString(),
     });
 
     setOpen(true);
   };
 
   const handleAction = () => {
+    setModal("");
+
     setOpen(false);
   };
 
   const handleSecondaryAction = () => {
+    setModal("");
+
     setOpen(false);
   };
 
   const handleClose = () => {
+    setModal("");
+
     setOpen(false);
   };
 
@@ -142,7 +153,7 @@ const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
           break;
         } else {
           tableCell = (
-            <TableCell selected={isCellSelected(day)} hover onClick={() => handleHourClick(i, day)}>
+            <TableCell selected={isCellSelected(day)} hover onClick={() => handleHourClick(hour, day)}>
               &nbsp;
             </TableCell>
           );
@@ -150,7 +161,7 @@ const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
       }
     } else {
       tableCell = (
-        <TableCell selected={isCellSelected(day)} hover onClick={() => handleHourClick(0, day)}>
+        <TableCell selected={isCellSelected(day)} hover onClick={() => handleHourClick(hour, day)}>
           &nbsp;
         </TableCell>
       );
@@ -175,11 +186,6 @@ const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
     <>
       <div className="flex flex-row gap-0">
         <div className="flex flex-col w-24 pt-12 pb-4 pr-4 items-end">
-          <div className="h-full">
-            <Typography variant="body" color="textPrimary">
-              All Day
-            </Typography>
-          </div>
           {hours.map((hour) => (
             <div key={hour} className="h-full">
               <Typography variant="body" color="textPrimary">
@@ -203,18 +209,6 @@ const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
             </TableRow>
           </thead>
           <tbody>
-            <TableRow>
-              {weekdays.map((day) => (
-                <TableCell
-                  key={day}
-                  selected={selectedWeek.length > 0 ? selectedWeek[weekdays.indexOf(day)].date === selectedDate.date : false}
-                  hover
-                  onClick={() => handleHourClick(0, weekdays.indexOf(day))}
-                >
-                  &nbsp;
-                </TableCell>
-              ))}
-            </TableRow>
             {hours.map((hour) => (
               <TableRow key={hour}>
                 {eventsArray.length > 0 &&
@@ -229,7 +223,7 @@ const TimelineCalendar = ({ events, selectedDate, cardTemplate }) => {
         </table>
       </div>
       <EventModal
-        type="Edit"
+        type={modal}
         data={data}
         open={open}
         onAction={handleAction}
