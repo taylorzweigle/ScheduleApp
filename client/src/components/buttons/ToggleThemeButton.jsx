@@ -17,7 +17,7 @@ const ToggleThemeButton = () => {
 
   return (
     <IconButton
-      icon={darkTheme ? <DarkModeIcon className="dark:text-white" /> : <LightModeIcon className=" text-slate-900" />}
+      icon={darkTheme ? <LightModeIcon className="dark:text-white" /> : <DarkModeIcon className=" text-slate-900" />}
       onClick={handleThemeButtonClick}
     />
   );
